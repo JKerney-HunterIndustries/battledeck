@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Battledeck</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <!-- <script src="main.js"></script> -->
+    <style>
+        .hidden {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hit spacebar to start</h1>
+    <img id="battle-image" src="./eatThisImage.jpg" alt="caturday" class="hidden">
+    <script>
+        function getNewXhr() {
+            return new XMLHttpRequest();
+        } 
+        
+        function isSuccess(status) {
+            return 199 < status && status < 300;
+        }
+
+        function isDone(readyState) {
+            return readyState === XMLHttpRequest.DONE;
+        }
+
+        function noop() { }
+
+        function readyStateHandler(xhr, callback) {
+            return function () {
+                var next = isDone(xhr.readyState) ? callback : noop;
+                var error = isSuccess(xhr.status) ? null : new Error(`Explodee! ${xhr.status}`);
+
+                next(error);
+            };
+        }
+
+        function shuffle(callback) {
+            const xhr = getNewXhr();
+            xhr.open('get', '/shuffle');
+            xhr.onreadystatechange = readyStateHandler(xhr, callback);
+            xhr.send();
+        }
+
+        function getRandomName() {
+            return `${Math.floor(Math.random() * 1000)}.jpg`;
+        }
+
+        function isNotRunning(intervalId) {
+            return (intervalId === null);
+        }
+
+        let intervalId = null;
+        document.addEventListener("keyup", function (event) {
+            const battleImage = document.getElementById('battle-image');
+            const h1 = document.getElementsByTagName('h1')[0];
+
+            function rumble() {
+                battleImage.setAttribute('class', '');
+                h1.setAttribute('class', 'hidden');
+
+                clearInterval(intervalId);
+                battleImage.setAttribute('src', getRandomName());
+                intervalId = setInterval(function () {
+                    battleImage.setAttribute('src', getRandomName());
+                }, 20000);
+            }
+
+            if (event.keyCode === 32) {
+                if (isNotRunning(intervalId)) {
+                    shuffle(function (error) {
+                        rumble();
+                    });
+                } else {
+                    rumble();
+                }
+                
+            }
+            else if (event.keyCode === 27) {
+                clearInterval(intervalId);
+                intervalId = null;
+                battleImage.setAttribute('class', 'hidden');
+                h1.setAttribute('class', '');
+            }
+        });
+    </script>
+</body>
+
+</html>

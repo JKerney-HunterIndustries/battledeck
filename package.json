@@ -1,0 +1,21 @@
+{
+  "name": "battledeck",
+  "version": "1.0.0",
+  "description": "a node battledeck (powerpoint karaoke) server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "powerpoint",
+    "karaoke",
+    "battledeck",
+    "battle",
+    "deck"
+  ],
+  "author": "cmstead & JasonKerney",
+  "license": "MIT",
+  "dependencies": {
+    "opn": "^5.1.0"
+  }
+}
