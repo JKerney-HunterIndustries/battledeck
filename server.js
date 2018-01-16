@@ -12,8 +12,8 @@ function isAnImagePath(name) {
 }
 
 function shuffle(itemsArray) {
-    var copy = itemsArray.slice(0);
-    var target = [];
+    let copy = itemsArray.slice(0);
+    let target = [];
 
     while (copy.length > 0) {
         const ptr = Math.floor(Math.random() * copy.length);
@@ -24,8 +24,9 @@ function shuffle(itemsArray) {
     return target;
 }
 
-var ptr = 0;
-const images = shuffle(fs.readdirSync("./img").filter(isAnImagePath));
+let ptr = 0;
+const baseImages = fs.readdirSync("./img").filter(isAnImagePath);
+let images = shuffle(baseImages);
 console.log(JSON.stringify(images));
 
 function showSlideShow(response) {
@@ -34,7 +35,7 @@ function showSlideShow(response) {
     response.end(indexPage, 'text');
 }
 
-function endProgram(response, process) {
+function endProgram(response) {
     response.end();
     process.abort();
 }
@@ -59,6 +60,11 @@ function handleError(response) {
 
 }
 
+function shuffleImages(response) {
+    images = shuffle(baseImages);
+    response.end();
+}
+
 http
     .createServer(function (request, response) {
         const requestUrl = url.parse(request.url, true);
@@ -69,10 +75,10 @@ http
             showSlideShow(response)
         }
         else if (filepath === '/end') {
-            endProgram(response, process)
+            endProgram(response);
         }
         else if (filepath === '/shuffle') {
-            //
+            shuffleImages(response);
         }
         else if (isAnImagePath(filepath)) {
             getImage(response)
