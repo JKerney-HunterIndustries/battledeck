@@ -9,8 +9,31 @@
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
     <!-- <script src="main.js"></script> -->
     <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
         .hidden {
             display: none
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            height: 100%;
+        }
+
+        h1 {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            height: 100%;
+            width: 100%;
         }
     </style>
 </head>
@@ -21,8 +44,8 @@
     <script>
         function getNewXhr() {
             return new XMLHttpRequest();
-        } 
-        
+        }
+
         function isSuccess(status) {
             return 199 < status && status < 300;
         }
@@ -89,6 +112,9 @@
                 h1.setAttribute('class', '');
             }
         });
+
+        document.getElementsByTagName('h1')[0].style.width = window.innerWidth + "px"
+        document.getElementsByTagName('h1')[0].style.height = window.innerHeight + "px"
     </script>
 </body>
 

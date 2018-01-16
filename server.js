@@ -36,7 +36,7 @@ function showSlideShow(response) {
 }
 
 function endProgram(response) {
-    response.end();
+    response.end("<h1>Bye!</h1><br/>" + (new Date()));
     process.abort();
 }
 
