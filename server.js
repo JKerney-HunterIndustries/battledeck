@@ -4,6 +4,10 @@ const fs = require('fs');
 const url = require('url')
 
 const port = 8713; // BTLE (BATTLE!!!!)
+const args = process.argv.slice(2, 3);
+
+let imageDirectory = args.length > 0 ? args[0] : './';
+imageDirectory = imageDirectory.endsWith('/') ? imageDirectory : imageDirectory + "/";
 
 function isAnImagePath(name) {
     const whiteExtentions = ['.jpg', 'png', 'gif'];
@@ -25,12 +29,12 @@ function shuffle(itemsArray) {
 }
 
 let ptr = 0;
-const baseImages = fs.readdirSync("./img").filter(isAnImagePath);
+const baseImages = fs.readdirSync(imageDirectory).filter(isAnImagePath);
 let images = shuffle(baseImages);
 console.log(JSON.stringify(images));
 
 function showSlideShow(response) {
-    const indexPage = fs.readFileSync('./index.html');
+    const indexPage = fs.readFileSync(__dirname + '/index.html');
     response.writeHead(200, { 'Content-Type': 'text/html' });
     response.end(indexPage, 'text');
 }
@@ -47,7 +51,7 @@ function getImage(response) {
 
     console.log(ptr);
     console.log(images[ptr]);
-    const imageData = fs.readFileSync(`./img/${images[ptr]}`);
+    const imageData = fs.readFileSync(`${imageDirectory}${images[ptr]}`);
     ptr++;
 
     response.writeHead(200, { 'Content-Type': 'text/plain' });

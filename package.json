@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "a node battledeck (powerpoint karaoke) server",
   "main": "index.js",
+  "bin": {
+    "battledeck": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
