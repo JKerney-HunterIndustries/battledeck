@@ -1,7 +1,7 @@
 {
   "name": "battledeck",
-  "version": "1.0.0",
-  "description": "a node battledeck (powerpoint karaoke) server",
+  "version": "0.1.0",
+  "description": "A node battledeck (powerpoint karaoke) server",
   "main": "index.js",
   "bin": {
     "battledeck": "index.js"
@@ -16,7 +16,25 @@
     "battle",
     "deck"
   ],
-  "author": "cmstead & JasonKerney",
+  "author":     {
+    "name": "Jason Kerney @ Hunter Industries",
+    "url": "https://github.com/JKerney-HunterIndustries"
+  },
+  "contributors": [
+    {
+      "name": "Chris Stead",
+      "url": "https://github.com/cmstead"
+    },
+    {
+      "name": "Jason Kerney",
+      "url": "https://github.com/JasonKerney"
+    }
+  ],
+  "repository" :
+  { 
+    "type" : "git",
+    "url" : "https://github.com/JKerney-HunterIndustries/battledeck"
+  },
   "license": "MIT",
   "dependencies": {
     "opn": "^5.1.0"
