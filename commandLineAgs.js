@@ -2,7 +2,7 @@
 
 const signet = require('signet')();
 const commandLineArgs = require('command-line-args');
-const commandLineUsage = require('command-line-usage');
+const getUsage = require('command-line-usage');
 const isValidPath = require('is-valid-path');
 const fs = require('fs');
 
@@ -64,20 +64,34 @@ const options = [
         type: pathType,
         defaultOption: true,
         defaultValue: pathType('./'),
-        typeLabel: '[italic]{image folder path}',
+        typeLabel: '[italic]{image_folder_path}',
         description: "The path where images to be used as slides are contained."
-    },
-    {
-        name: 'maxslides',
-        alias: 's',
-        type: integer,
-        typeLabel: '[italic]{max Slide Count}',
-        description: "This will cause a slide show to automaticly end after the count is reached."
+        // },
+        // {
+        //     name: 'maxslides',
+        //     alias: 's',
+        //     type: integer,
+        //     typeLabel: '[italic]{max_slide_count}',
+        //     description: "This will cause a slide show to automaticly end after the count is reached."
     }
 ];
 
 function getArgs() {
-    return commandLineArgs(options);
+    try {
+        const argumentValues = commandLineArgs(options);
+        const areValid = Object.keys(argumentValues).map(k => argumentValues[k].valid).reduce((a, b) => a && b);
+
+        return {
+            value: argumentValues,
+            valid: areValid
+        };
+    } catch (e) {
+        console.log(e);
+        return {
+            value: e.message,
+            valid: false
+        };
+    }
 }
 
 function buildUsageInfo() {
@@ -92,13 +106,23 @@ function buildUsageInfo() {
                 'Examples of use:\n',
                 'battledeck',
                 'battledeck imagepath',
-                'battledeck --maxslides 20'
+                'battledeck --path imagepath',
+                'battledeck -p imagepath',
+                'battledeck --help',
+                'battledeck -?'
             ]
+        },
+        {
+            header: 'Options',
+            optionList: options
         }
     ];
+
+    return getUsage(sections);
 }
 
-console.log(JSON.stringify(getArgs()));
+console.log(JSON.stringify(getArgs(), null, 4));
+// console.log(buildUsageInfo());
 
 // module.exports = {
 //     getArgs: getArgs
