@@ -13,10 +13,6 @@ signet.alias(typeName, 'formattedString<^[1-9]$|^([1-9][0-9]+)$>');
 
 const verifyInteger = signet.verifyValueType(typeName);
 
-function getErrorMessage(name, value) {
-    return `${name} must be a valid path to a directory. Instead given ${value}`;
-}
-
 function getParameterType(errorMessage, isItValid, getValue, unknown) {
     try {
         const isValidObject = Boolean(isItValid(unknown));
