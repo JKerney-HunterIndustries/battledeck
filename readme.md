@@ -20,6 +20,9 @@ Battledeck takes an optional parameter to specify the directory with the images.
 
 Battledeck also takes a -? to better explain arguments
 
+`battledeck -?`<br/>
+`battledeck --help`
+
 ## Usage
 Spacebar 
 * Start
