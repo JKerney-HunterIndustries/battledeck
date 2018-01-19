@@ -4,12 +4,34 @@ const http = require('http');
 const opn = require('opn');
 const fs = require('fs');
 const url = require('url')
+const commandLineArgs = require('./commandLineAgs');
 
 const port = 8713; // BTLE (BATTLE!!!!)
 const args = process.argv.slice(2, 3);
 
-let imageDirectory = args.length > 0 ? args[0] : './';
-imageDirectory = imageDirectory.endsWith('/') ? imageDirectory : imageDirectory + "/";
+let myArgsState = commandLineArgs.getArgs();
+let myArgs = myArgsState.value;
+if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
+    console.log(commandLineArgs.buildUsageInfo());
+}
+
+if(myArgsState.isError) {
+    console.log(`\n\nERROR: \n ${myArgs}\n\n`)
+} else if (!(myArgsState.valid)) {
+    console.log('\nErrors: \n');
+    Object
+        .keys(myArgs)
+        .filter(k => myArgs[k].valid)
+        .forEach(k => console.log(`\n${myArgs[k].name}: ${myArgs[k].value}\n`))
+    console.log('\n');
+}
+
+if ((!myArgsState.valid) || myArgsState.isError || myArgs.help){
+    process.exit();
+}
+
+let imageDirectory = myArgs.path.value;
+
 
 function isAnImagePath(name) {
     const whiteExtentions = ['.jpg', 'png', 'gif'];
@@ -33,7 +55,6 @@ function shuffle(itemsArray) {
 let ptr = 0;
 const baseImages = fs.readdirSync(imageDirectory).filter(isAnImagePath);
 let images = shuffle(baseImages);
-console.log(JSON.stringify(images));
 
 function showSlideShow(response) {
     const indexPage = fs.readFileSync(__dirname + '/index.html');
@@ -51,8 +72,6 @@ function getImage(response) {
         ptr = 0;
     }
 
-    console.log(ptr);
-    console.log(images[ptr]);
     const imageData = fs.readFileSync(`${imageDirectory}${images[ptr]}`);
     ptr++;
 
@@ -75,7 +94,6 @@ http
     .createServer(function (request, response) {
         const requestUrl = url.parse(request.url, true);
         const filepath = requestUrl.pathname;
-        console.log(filepath);
 
         if (filepath === '/') {
             showSlideShow(response)

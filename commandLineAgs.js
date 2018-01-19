@@ -6,6 +6,8 @@ const getUsage = require('command-line-usage');
 const isValidPath = require('is-valid-path');
 const fs = require('fs');
 
+const isUndefined = signet.isTypeOf('undefined');
+
 const typeName = 'max_slide_count';
 signet.alias(typeName, 'formattedString<^[1-9]$|^([1-9][0-9]+)$>');
 
@@ -77,19 +79,28 @@ const options = [
 ];
 
 function getArgs() {
+    function isValidParmeter(unknownType) {
+        return (unknownType.valid) || (isUndefined(unknownType.valid));
+    }
+
     try {
         const argumentValues = commandLineArgs(options);
-        const areValid = Object.keys(argumentValues).map(k => argumentValues[k].valid).reduce((a, b) => a && b);
+        const argumentKeys = Object.keys(argumentValues);
+
+        const areValid = argumentKeys
+            .map(k => argumentValues[k])
+            .reduce((accum, b) => accum && isValidParmeter(b), true);
 
         return {
             value: argumentValues,
-            valid: areValid
+            valid: areValid,
+            isError: false
         };
     } catch (e) {
-        console.log(e);
         return {
             value: e.message,
-            valid: false
+            valid: false,
+            isError: true
         };
     }
 }
@@ -121,9 +132,10 @@ function buildUsageInfo() {
     return getUsage(sections);
 }
 
-console.log(JSON.stringify(getArgs(), null, 4));
+// console.log(JSON.stringify(getArgs(), null, 4));
 // console.log(buildUsageInfo());
 
-// module.exports = {
-//     getArgs: getArgs
-// };
+module.exports = {
+    getArgs: getArgs,
+    buildUsageInfo: buildUsageInfo
+};
