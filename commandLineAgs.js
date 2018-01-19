@@ -114,7 +114,8 @@ function buildUsageInfo() {
         {
             header: 'Synopsis',
             content: [
-                'Examples of use:\n',
+                'Examples of use:',
+                '',
                 'battledeck',
                 'battledeck imagepath',
                 'battledeck --path imagepath',
@@ -126,6 +127,9 @@ function buildUsageInfo() {
         {
             header: 'Options',
             optionList: options
+        },
+        {
+            content: 'Project home: [underline]{https://github.com/JKerney-HunterIndustries/battledeck}'
         }
     ];
 
