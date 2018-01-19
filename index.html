@@ -35,11 +35,36 @@
             height: 100%;
             width: 100%;
         }
+
+        .centered {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -50%);
+        }
+
+        #end {
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        #infoBlock {
+            text-align: center;
+        }
+
+        a, a:hover, a:active, a:visited {
+            color: aqua
+        }
     </style>
 </head>
 
 <body>
-    <h1>Hit spacebar to start</h1>
+    <div id='infoBlock' class="centered">
+        <h1>Hit spacebar to start</h1>
+        <br/>
+        <h1 id="end"><a href="/end">Shutdown</a></h1>
+    </div>
     <img id="battle-image" src="./eatThisImage.jpg" alt="caturday" class="hidden">
     <script>
         function getNewXhr() {
@@ -83,7 +108,7 @@
         let intervalId = null;
         document.addEventListener("keyup", function (event) {
             const battleImage = document.getElementById('battle-image');
-            const h1 = document.getElementsByTagName('h1')[0];
+            const h1 = document.getElementById('infoBlock');
 
             function rumble() {
                 battleImage.setAttribute('class', '');
@@ -109,12 +134,9 @@
                 clearInterval(intervalId);
                 intervalId = null;
                 battleImage.setAttribute('class', 'hidden');
-                h1.setAttribute('class', '');
+                h1.setAttribute('class', 'centered');
             }
         });
-
-        document.getElementsByTagName('h1')[0].style.width = window.innerWidth + "px"
-        document.getElementsByTagName('h1')[0].style.height = window.innerHeight + "px"
     </script>
 </body>
 

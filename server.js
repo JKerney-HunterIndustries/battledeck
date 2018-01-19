@@ -7,7 +7,6 @@ const url = require('url')
 const commandLineArgs = require('./commandLineAgs');
 
 const port = 8713; // BTLE (BATTLE!!!!)
-const args = process.argv.slice(2, 3);
 
 let myArgsState = commandLineArgs.getArgs();
 let myArgs = myArgsState.value;
@@ -63,7 +62,7 @@ function showSlideShow(response) {
 }
 
 function endProgram(response) {
-    response.end("<h1>Bye!</h1><br/>" + (new Date()));
+    response.end('<h1>Bye!</h1><br/>' + (new Date()));
     process.abort();
 }
 
