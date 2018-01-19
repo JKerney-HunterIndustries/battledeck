@@ -5,13 +5,12 @@ const commandLineArgs = require('command-line-args');
 const getUsage = require('command-line-usage');
 const isValidPath = require('is-valid-path');
 const fs = require('fs');
+const path = require('path');
 
 const isUndefined = signet.isTypeOf('undefined');
 
 const typeName = 'max_slide_count';
 signet.alias(typeName, 'formattedString<^[1-9]$|^([1-9][0-9]+)$>');
-
-const verifyInteger = signet.verifyValueType(typeName);
 
 function getParameterType(errorMessage, isItValid, getValue, unknown) {
     try {
@@ -40,13 +39,12 @@ function pathType(unknownString) {
         return Boolean(info) ? info.isDirectory() : false;
     }
 
-    return getParameterType(err, isValid, v => v, unknownString)
-}
+    function getPathString(string) {
+        let result = string.trim();
+        return result.endsWith('\\') || result.endsWith('//') ? result : (result + path.sep);
+    }
 
-function integer(unknownValue) {
-    let err = `Must be a valid integer but recieved ${unknownValue.trim()} instead.`
-
-    return getParameterType(err, () => true, v => Number(verifyInteger(v)), unknownValue);
+    return getParameterType(err, isValid, getPathString, unknownString)
 }
 
 const options = [
@@ -64,13 +62,6 @@ const options = [
         defaultValue: pathType('./'),
         typeLabel: '[italic]{image_folder_path}',
         description: "The path where images to be used as slides are contained."
-        // },
-        // {
-        //     name: 'maxslides',
-        //     alias: 's',
-        //     type: integer,
-        //     typeLabel: '[italic]{max_slide_count}',
-        //     description: "This will cause a slide show to automaticly end after the count is reached."
     }
 ];
 
