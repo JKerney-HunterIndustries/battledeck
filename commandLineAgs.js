@@ -34,7 +34,7 @@ function pathType(unknownString) {
     let err = `Path must be a valid path to a directory. Instead given ${trimmed}`;
 
     function isValid(value) {
-        let info = isPath ? fs.lstatSync(trimmed) : null;
+        let info = isPath ? fs.lstatSync(value) : null;
 
         return Boolean(info) ? info.isDirectory() : false;
     }
