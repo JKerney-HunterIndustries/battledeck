@@ -18,6 +18,8 @@ Battledeck takes an optional parameter to specify the directory with the images.
 
 `battledeck ./images`
 
+Battledeck also takes a -? to better explain arguments
+
 ## Usage
 Spacebar 
 * Start
