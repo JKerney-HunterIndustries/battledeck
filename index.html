@@ -2,12 +2,12 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset='utf-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Battledeck</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
-    <!-- <script src="main.js"></script> -->
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css' /> -->
+    <!-- <script src='main.js'></script> -->
     <style>
         body {
             background-color: black;
@@ -44,7 +44,7 @@
             transform: translate(-50%, -50%);
         }
 
-        #end {
+        .textCentered {
             display: inline-block;
             margin: 0 auto;
         }
@@ -54,19 +54,52 @@
         }
 
         a, a:hover, a:active, a:visited {
-            color: aqua
+            color: aqua;
+        }
+
+        .clickable {
+            cursor: pointer;
+            color: aqua;
+            text-decoration: underline;
+        }
+
+        .form {
+            border: 1px dotted #999;
         }
     </style>
 </head>
 
 <body>
-    <div id='infoBlock' class="centered">
-        <h1>Hit spacebar to start</h1>
+    <div id='infoBlock' class='centered'>
+        <h1 class='textCentered'>Hit spacebar to start</h1><br/>
+        <div class='textCentered'>F11 to put browser into full screen.</div><br/>
         <br/>
-        <h1 id="end"><a href="/end">Shutdown</a></h1>
+        <br/>
+        <h1 class='textCentered'><a href='/end'>Shutdown</a></h1><br/>
+        <br/>
+        <div id='configLink' class='textCentered clickable' onclick='showConfiguration()'>Show Configuration</div><br/>
+        <div id='configSection' class='hidden'>
+            <div class='form'>
+                Time Delay Between Slides: <input id="timeout" type="text" value="20"></input>
+            </div>
+        </div>
     </div>
-    <img id="battle-image" src="./eatThisImage.jpg" alt="caturday" class="hidden">
+    <img id='battle-image' src='./eatThisImage.jpg' alt='caturday' class='hidden'>
     <script>
+        function showConfiguration() {
+            var configSection = document.getElementById('configSection');
+            var configLink = document.getElementById('configLink');
+            var classes = configSection.getAttribute('class');
+
+            if(classes.includes('hidden')) {
+                configSection.setAttribute('class', 'textCentered');
+                configLink.innerText = 'Hide Configuration';
+            } else {
+                configSection.setAttribute('class', 'hidden');
+                configLink.innerText = 'Show Configuration';
+            }
+        }
+
         function getNewXhr() {
             return new XMLHttpRequest();
         }
@@ -106,11 +139,17 @@
         }
 
         let intervalId = null;
-        document.addEventListener("keyup", function (event) {
+        document.addEventListener('keyup', function (event) {
             const battleImage = document.getElementById('battle-image');
             const h1 = document.getElementById('infoBlock');
 
             function rumble() {
+                var timeout = document.getElementById('timeout').value;
+                timeout = Boolean(timeout) ? Number(timeout) : 20;
+                timeout = Number.isNaN(timeout) ? 20 : timeout;
+                timeout = timeout >= 1 ? timeout : 1;
+                timeout = timeout * 1000;
+
                 battleImage.setAttribute('class', '');
                 h1.setAttribute('class', 'hidden');
 
@@ -118,7 +157,7 @@
                 battleImage.setAttribute('src', getRandomName());
                 intervalId = setInterval(function () {
                     battleImage.setAttribute('src', getRandomName());
-                }, 20000);
+                }, timeout);
             }
 
             if (event.keyCode === 32) {

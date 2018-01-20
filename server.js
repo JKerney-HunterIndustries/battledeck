@@ -111,6 +111,6 @@ http
         }
     })
     .listen(port, function () {
-        console.log("ready to rumble!");
+        console.log('ready to rumble!');
         opn(`http://localhost:${port}`);
     });
