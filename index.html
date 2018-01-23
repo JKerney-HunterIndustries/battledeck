@@ -173,7 +173,7 @@
         }
 
         function getValidValue(timeoutValue) {
-            let value = Number(timeoutValue);
+            let value = Number(timeoutValue.trim());
             console.log(value);
             if (signet.isTypeOf('leftBoundedInt<1>')(value)) {
                 return value;
