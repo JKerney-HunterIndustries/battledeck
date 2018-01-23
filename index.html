@@ -161,7 +161,7 @@
         }
 
         function getRandomName() {
-            return `${Math.floor(Math.random() * 1000)}.jpg`;
+            return `${Math.floor(Math.random() * 100000)}.jpg`;
         }
 
         function isNotRunning(intervalId) {
@@ -212,7 +212,7 @@
                 if (timeout <= 1) {
                     countdownElement.setAttribute('class', 'hidden');
                 }
-                
+
                 battleImage.setAttribute('class', '');
                 h1.setAttribute('class', 'hidden');
 
@@ -229,6 +229,7 @@
             }
 
             if (event.keyCode === 32) {
+                countdownElement.innerText = getSlideTimeout();                
                 if (isNotRunning(intervalId)) {
                     shuffle(function (error) {
                         countdownElement.setAttribute('class', '');
