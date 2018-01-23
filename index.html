@@ -27,6 +27,7 @@
             right: 0;
             margin: auto;
             height: 100%;
+            z-index: 10;
             max-height: 100%;
             max-width: 100%;
         }
@@ -72,10 +73,26 @@
         .form {
             border: 1px dotted #999;
         }
+
+        #countdown {
+            float: right;
+            bottom: 0;
+            position: absolute;
+            right: 0;
+            z-index: 1000;
+            color: white;
+            text-shadow: -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+            font-size: 120px;
+            opacity: 0.33;
+        }
     </style>
 </head>
 
 <body>
+    <div id='countdown' class='hidden'>20</div>
     <div id='infoBlock' class='centered'>
         <h1 class='textCentered'>Hit spacebar to start</h1>
         <br/>
