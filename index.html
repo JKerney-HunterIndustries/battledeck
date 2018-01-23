@@ -208,6 +208,11 @@
             const countdownElement = document.getElementById('countdown');
 
             function rumble() {
+                const timeout = getSlideTimeout();
+                if (timeout <= 1) {
+                    countdownElement.setAttribute('class', 'hidden');
+                }
+                
                 battleImage.setAttribute('class', '');
                 h1.setAttribute('class', 'hidden');
 
