@@ -36,4 +36,6 @@ Esc
 
 ## To Quit
 
-http://localhost:8713/end
+* Click the "Shutdown Link"
+* http://localhost:8713/end
+* In console press `Ctrl + C`
