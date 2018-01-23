@@ -85,7 +85,7 @@
             1px -1px 0 #000,
             -1px 1px 0 #000,
             1px 1px 0 #000;
-            font-size: 120px;
+            font-size: 500%;
             opacity: 0.33;
         }
     </style>
@@ -109,8 +109,8 @@
         <br/>
         <div id='configSection' class='hidden'>
             <div class='form'>
-                Time Delay Between Slides:
-                <input id="timeout" type="text" value="20"></input>
+                Time Delay Between Slides (Seconds):
+                <input id="timeout" type="text" value="20" onblur='validateTimeout()'></input>
             </div>
         </div>
     </div>
@@ -172,7 +172,7 @@
             return document.getElementById('timeout');
         }
 
-        function getValidTimeOut(timeoutValue) {
+        function getValidValue(timeoutValue) {
             let value = Number(timeoutValue);
             console.log(value);
             if (signet.isTypeOf('leftBoundedInt<1>')(value)) {
@@ -185,40 +185,48 @@
 
         function setSlideTimeOut(timeoutValue) {
             console.log(timeoutValue);
-            let timeout = getValidTimeOut(timeoutValue);
+            let timeout = getValidValue(timeoutValue);
             let element = getTimeoutElement();
+            document.getElementById('countdown').innerText = timeout;
             element.value = timeout;
         }
 
-        function getSlideTimeout() {
-            let timeout = getValidTimeOut(getTimeoutElement().value);
-            console.log(timeout);
+        function validateTimeout() {
+            let timeout = getSlideTimeout();
             setSlideTimeOut(timeout);
-            return timeout * 1000;
+        }
+
+        function getSlideTimeout() {
+            let timeout = getValidValue(getTimeoutElement().value);
+            return timeout;
         }
 
         let intervalId = null;
         document.addEventListener('keyup', function (event) {
             const battleImage = document.getElementById('battle-image');
             const h1 = document.getElementById('infoBlock');
+            const countdownElement = document.getElementById('countdown');
 
             function rumble() {
-                var timeout = getSlideTimeout();
-                console.log(timeout);
-
                 battleImage.setAttribute('class', '');
                 h1.setAttribute('class', 'hidden');
 
                 clearInterval(intervalId);
                 battleImage.setAttribute('src', getRandomName());
                 intervalId = setInterval(function () {
-                    battleImage.setAttribute('src', getRandomName());
-                }, timeout);
+                    let countdown = Number(countdownElement.innerText);
+                    if (countdown === 1) {
+                        battleImage.setAttribute('src', getRandomName());
+                    }
+
+                    countdownElement.innerText = (countdown <= 1 ? getSlideTimeout() : countdown - 1);
+                }, 1000);
             }
 
             if (event.keyCode === 32) {
                 if (isNotRunning(intervalId)) {
                     shuffle(function (error) {
+                        countdownElement.setAttribute('class', '');
                         rumble();
                     });
                 } else {
@@ -229,6 +237,7 @@
                 clearInterval(intervalId);
                 intervalId = null;
                 battleImage.setAttribute('class', 'hidden');
+                countdownElement.setAttribute('class', 'hidden');
                 h1.setAttribute('class', 'centered');
             }
         });
