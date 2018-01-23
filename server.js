@@ -103,6 +103,16 @@ http
         else if (filepath === '/shuffle') {
             shuffleImages(response);
         }
+        else if (filepath === '/signet.js') {
+            const signetFile = fs.readFileSync(__dirname + '/node_modules/signet/dist/signet.min.js');
+            response.writeHead(200, { 'Content-Type': 'text/plain' });
+            response.end(signetFile, 'text');
+        }
+        else if (filepath === '/signet.min.js.map') {
+            const signetFile = fs.readFileSync(__dirname + '/node_modules/signet/dist/signet.min.js.map');
+            response.writeHead(200, { 'Content-Type': 'text/plain' });
+            response.end(signetFile, 'text');
+        }
         else if (isAnImagePath(filepath)) {
             getImage(response)
         }

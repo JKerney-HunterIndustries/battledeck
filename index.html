@@ -8,6 +8,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css' /> -->
     <!-- <script src='main.js'></script> -->
+    <script src='/signet.js'></script>
     <style>
         body {
             background-color: black;
@@ -53,7 +54,10 @@
             text-align: center;
         }
 
-        a, a:hover, a:active, a:visited {
+        a,
+        a:hover,
+        a:active,
+        a:visited {
             color: aqua;
         }
 
@@ -71,16 +75,23 @@
 
 <body>
     <div id='infoBlock' class='centered'>
-        <h1 class='textCentered'>Hit spacebar to start</h1><br/>
-        <div class='textCentered'>F11 to put browser into full screen.</div><br/>
+        <h1 class='textCentered'>Hit spacebar to start</h1>
+        <br/>
+        <div class='textCentered'>F11 to put browser into full screen.</div>
         <br/>
         <br/>
-        <h1 class='textCentered'><a href='/end'>Shutdown</a></h1><br/>
         <br/>
-        <div id='configLink' class='textCentered clickable' onclick='showConfiguration()'>Show Configuration</div><br/>
+        <h1 class='textCentered'>
+            <a href='/end'>Shutdown</a>
+        </h1>
+        <br/>
+        <br/>
+        <div id='configLink' class='textCentered clickable' onclick='showConfiguration()'>Show Configuration</div>
+        <br/>
         <div id='configSection' class='hidden'>
             <div class='form'>
-                Time Delay Between Slides: <input id="timeout" type="text" value="20"></input>
+                Time Delay Between Slides:
+                <input id="timeout" type="text" value="20"></input>
             </div>
         </div>
     </div>
@@ -91,7 +102,7 @@
             var configLink = document.getElementById('configLink');
             var classes = configSection.getAttribute('class');
 
-            if(classes.includes('hidden')) {
+            if (classes.includes('hidden')) {
                 configSection.setAttribute('class', 'textCentered');
                 configLink.innerText = 'Hide Configuration';
             } else {
@@ -138,17 +149,43 @@
             return (intervalId === null);
         }
 
+        function getTimeoutElement() {
+            return document.getElementById('timeout');
+        }
+
+        function getValidTimeOut(timeoutValue) {
+            let value = Number(timeoutValue);
+            console.log(value);
+            if (signet.isTypeOf('leftBoundedInt<1>')(value)) {
+                return value;
+            }
+            else {
+                return 20;
+            }
+        }
+
+        function setSlideTimeOut(timeoutValue) {
+            console.log(timeoutValue);
+            let timeout = getValidTimeOut(timeoutValue);
+            let element = getTimeoutElement();
+            element.value = timeout;
+        }
+
+        function getSlideTimeout() {
+            let timeout = getValidTimeOut(getTimeoutElement().value);
+            console.log(timeout);
+            setSlideTimeOut(timeout);
+            return timeout * 1000;
+        }
+
         let intervalId = null;
         document.addEventListener('keyup', function (event) {
             const battleImage = document.getElementById('battle-image');
             const h1 = document.getElementById('infoBlock');
 
             function rumble() {
-                var timeout = document.getElementById('timeout').value;
-                timeout = Boolean(timeout) ? Number(timeout) : 20;
-                timeout = Number.isNaN(timeout) ? 20 : timeout;
-                timeout = timeout >= 1 ? timeout : 1;
-                timeout = timeout * 1000;
+                var timeout = getSlideTimeout();
+                console.log(timeout);
 
                 battleImage.setAttribute('class', '');
                 h1.setAttribute('class', 'hidden');
