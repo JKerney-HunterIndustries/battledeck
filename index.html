@@ -173,7 +173,7 @@
         }
 
         function getValidValue(timeoutValue) {
-            let value = Number(timeoutValue.trim());
+            let value = Number(timeoutValue);
             console.log(value);
             if (signet.isTypeOf('leftBoundedInt<1>')(value)) {
                 return value;
@@ -197,7 +197,7 @@
         }
 
         function getSlideTimeout() {
-            let timeout = getValidValue(getTimeoutElement().value);
+            let timeout = getValidValue(getTimeoutElement().value.trim());
             return timeout;
         }
 

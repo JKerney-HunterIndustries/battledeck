@@ -14,7 +14,7 @@ if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
     console.log(commandLineArgs.buildUsageInfo());
 }
 
-if(myArgsState.isError) {
+if (myArgsState.isError) {
     console.log(`\n\nERROR: \n ${myArgs}\n\n`)
 } else if (!(myArgsState.valid)) {
     console.log('\nErrors: \n');
@@ -25,7 +25,7 @@ if(myArgsState.isError) {
     console.log('\n');
 }
 
-if ((!myArgsState.valid) || myArgsState.isError || myArgs.help){
+if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
     process.exit();
 }
 
@@ -89,6 +89,7 @@ function shuffleImages(response) {
     response.end();
 }
 
+const battleUrl = `http://localhost:${port}`;
 http
     .createServer(function (request, response) {
         const requestUrl = url.parse(request.url, true);
@@ -122,5 +123,7 @@ http
     })
     .listen(port, function () {
         console.log('ready to rumble!');
-        opn(`http://localhost:${port}`);
+
+        opn(battleUrl);
+        console.log(battleUrl);
     });
