@@ -109,8 +109,11 @@
         <br/>
         <div id='configSection' class='hidden'>
             <div class='form'>
-                Time Delay Between Slides (Seconds):
-                <input id="timeout" type="text" value="20" onblur='validateTimeout()'></input>
+                <label for='timeout'>Time Delay Between Slides (Seconds):</label>
+                <input id='timeout' type="text" value="20" onblur='validateTimeout()'></input>
+                <br />
+                <label for='showCountdown'>Show slide timer countdown?</label>
+                <input id='showCountdown' type="checkbox"></input>
             </div>
         </div>
     </div>
