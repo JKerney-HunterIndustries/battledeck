@@ -8,7 +8,7 @@ Battledeck
 ## Summary
 Battledeck an easy to use program for usinging images as slides for "[Powerpoint Karaoke](https://en.wikipedia.org/wiki/PowerPoint_Karaoke)". You **_MUST_** have a directory of your own images since no images are provided.
 
-More detailed documentation can be found [Here](https://github.com/JKerney-HunterIndustries/battledeck/wiki)
+## [More detailed documentation can be found here](https://github.com/JKerney-HunterIndustries/battledeck/wiki)
 
 ### Suported Image Types
 * .jpg
