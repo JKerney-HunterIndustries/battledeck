@@ -33,7 +33,7 @@ let imageDirectory = myArgs.path.value;
 
 
 function isAnImagePath(name) {
-    const whiteExtentions = ['.jpg', 'png', 'gif'];
+    const whiteExtentions = ['.jpg', '.png', '.gif', '.jpeg'];
 
     return whiteExtentions.filter(ext => name.endsWith(ext)).length > 0;
 }
