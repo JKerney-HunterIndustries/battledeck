@@ -72,6 +72,7 @@
 
         .form {
             border: 1px dotted #999;
+            text-align: left;
         }
 
         #countdown {
@@ -80,7 +81,7 @@
             position: absolute;
             right: 0;
             z-index: 1000;
-            color: white;
+            color: lightblue;
             text-shadow: -1px -1px 0 #000,
             1px -1px 0 #000,
             -1px 1px 0 #000,
@@ -109,8 +110,10 @@
         <br/>
         <div id='configSection' class='hidden'>
             <div class='form'>
-                Time Delay Between Slides (Seconds):
-                <input id="timeout" type="text" value="20" onblur='validateTimeout()'></input>
+                <label for='timeout'>Time Delay Between Slides (Seconds):</label>
+                <input id='timeout' type="text" value="20" onblur='validateTimeout()'></input>
+                <br />
+                <input id='showCountdown' type="checkbox" checked>Show slide timer countdown?</input>
             </div>
         </div>
     </div>
@@ -206,10 +209,11 @@
             const battleImage = document.getElementById('battle-image');
             const h1 = document.getElementById('infoBlock');
             const countdownElement = document.getElementById('countdown');
+            const hideCountdown = !document.getElementById('showCountdown').checked;
 
             function rumble() {
                 const timeout = getSlideTimeout();
-                if (timeout <= 1) {
+                if (timeout <= 1 || hideCountdown) {
                     countdownElement.setAttribute('class', 'hidden');
                 }
 
@@ -229,7 +233,7 @@
             }
 
             if (event.keyCode === 32) {
-                countdownElement.innerText = getSlideTimeout();                
+                countdownElement.innerText = getSlideTimeout();
                 if (isNotRunning(intervalId)) {
                     shuffle(function (error) {
                         countdownElement.setAttribute('class', '');
