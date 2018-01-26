@@ -12,6 +12,7 @@ Battledeck an easy to use program for usinging images as slides for "[Powerpoint
 
 ### Suported Image Types
 * .jpg
+* .jpeg
 * .png
 * .gif
 
