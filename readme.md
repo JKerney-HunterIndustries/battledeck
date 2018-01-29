@@ -6,7 +6,7 @@ Battledeck
 **Run:** In directory with images type `battledeck`
 
 
-[![NPM Downloads](https://img.shields.io/npm/dt/battledeck.svg)]
+![NPM Downloads](https://img.shields.io/npm/dt/battledeck.svg)
 
 ## Summary
 Battledeck an easy to use program for usinging images as slides for "[Powerpoint Karaoke](https://en.wikipedia.org/wiki/PowerPoint_Karaoke)". You **_MUST_** have a directory of your own images since no images are provided.
