@@ -2,7 +2,7 @@ Battledeck
 ==========
 
 
-![NPM Version](https://img.shields.io/npm/v/battledeck.svg?link=https://www.npmjs.com/package/battledeck) ![NPM Downloads](https://img.shields.io/npm/dt/battledeck.svg) ![License MIT](https://img.shields.io/npm/l/battledeck.svg) ![Dependencies](https://david-dm.org/JKerney-HunterIndustries/battledeck.svg)
+![NPM Version](https://img.shields.io/npm/v/battledeck.svg?link=https://www.npmjs.com/package/battledeck&?link=https://www.npmjs.com/package/battledeck) ![NPM Downloads](https://img.shields.io/npm/dt/battledeck.svg) ![License MIT](https://img.shields.io/npm/l/battledeck.svg) ![Dependencies](https://david-dm.org/JKerney-HunterIndustries/battledeck.svg)
 
 ---
 
