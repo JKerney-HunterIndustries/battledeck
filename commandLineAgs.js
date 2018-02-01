@@ -1,6 +1,6 @@
 'use strict';
 
-const signet = require('signet')();
+const signet = require('./signetBuilder');
 const commandLineArgs = require('command-line-args');
 const getUsage = require('command-line-usage');
 const isValidPath = require('is-valid-path');
