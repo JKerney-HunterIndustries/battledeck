@@ -6,61 +6,67 @@ const fs = require('fs');
 const url = require('url')
 const commandLineArgs = require('./commandLineAgs');
 const staticServer = require('./staticResourceServer');
+const signet = require('./signetBuilder');
 
 const port = 8713; // BTLE (BATTLE!!!!)
 
 let myArgsState = commandLineArgs.getArgs();
 let myArgs = myArgsState.value;
-if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
-    console.log(commandLineArgs.buildUsageInfo());
+
+function validateCommandLineArguments(myArgs) {
+    if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
+        console.log(commandLineArgs.buildUsageInfo());
+    }
+
+    if (myArgsState.isError) {
+        console.log(`\n\nERROR: \n ${myArgs}\n\n`)
+    } else if (!(myArgsState.valid)) {
+        console.log('\nErrors: \n');
+        Object
+            .keys(myArgs)
+            .filter(k => myArgs[k].valid)
+            .forEach(k => console.log(`\n${myArgs[k].name}: ${myArgs[k].value}\n`))
+        console.log('\n');
+    }
+
+    if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
+        process.exit();
+    }
 }
 
-if (myArgsState.isError) {
-    console.log(`\n\nERROR: \n ${myArgs}\n\n`)
-} else if (!(myArgsState.valid)) {
-    console.log('\nErrors: \n');
-    Object
-        .keys(myArgs)
-        .filter(k => myArgs[k].valid)
-        .forEach(k => console.log(`\n${myArgs[k].name}: ${myArgs[k].value}\n`))
-    console.log('\n');
-}
-
-if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
-    process.exit();
-}
+validateCommandLineArguments(myArgs);
 
 let imageDirectory = myArgs.path.value;
 
 
-function isAnImagePath(name) {
-    const whiteExtentions = ['.jpg', '.png', '.gif', '.jpeg'];
+const isAnImagePath = signet.enforce(
+    'name:string => boolean',
+    function isAnImagePath(name) {
+        const whiteExtentions = ['.jpg', '.png', '.gif', '.jpeg'];
 
-    return whiteExtentions.filter(ext => name.endsWith(ext)).length > 0;
-}
-
-function shuffle(itemsArray) {
-    let copy = itemsArray.slice(0);
-    let target = [];
-
-    while (copy.length > 0) {
-        const ptr = Math.floor(Math.random() * copy.length);
-        target.push(copy[ptr]);
-        copy.splice(ptr, 1);
+        return whiteExtentions.filter(ext => name.endsWith(ext)).length > 0;
     }
+);
 
-    return target;
-}
+const shuffle = signet.enforce(
+    'itemsArray:array => array',
+    function shuffle(itemsArray) {
+        let copy = itemsArray.slice(0);
+        let target = [];
+
+        while (copy.length > 0) {
+            const ptr = Math.floor(Math.random() * copy.length);
+            target.push(copy[ptr]);
+            copy.splice(ptr, 1);
+        }
+
+        return target;
+    }
+);
 
 let ptr = 0;
 const baseImages = fs.readdirSync(imageDirectory).filter(isAnImagePath);
 let images = shuffle(baseImages);
-
-function showSlideShow(response) {
-    const indexPage = fs.readFileSync(__dirname + '/index.html');
-    response.writeHead(200, { 'Content-Type': 'text/html' });
-    response.end(indexPage, 'text');
-}
 
 function endProgram(response) {
     response.end('<h1>Bye!</h1><br/>' + (new Date()));

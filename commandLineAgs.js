@@ -65,63 +65,73 @@ const options = [
     }
 ];
 
-function getArgs() {
-    function isValidParmeter(unknownType) {
-        return (unknownType.valid) || (isUndefined(unknownType.valid));
-    }
-
-    try {
-        const argumentValues = commandLineArgs(options);
-        const argumentKeys = Object.keys(argumentValues);
-
-        const areValid = argumentKeys
-            .map(k => argumentValues[k])
-            .reduce((accum, b) => accum && isValidParmeter(b), true);
-
-        return {
-            value: argumentValues,
-            valid: areValid,
-            isError: false
-        };
-    } catch (e) {
-        return {
-            value: e.message,
-            valid: false,
-            isError: true
-        };
-    }
-}
-
-function buildUsageInfo() {
-    const sections = [
-        {
-            header: 'battledeck - the fun and easy way to do improvational presentations',
-            content: 'Hosts images in a directory as a random presentation.'
-        },
-        {
-            header: 'Synopsis',
-            content: [
-                'Examples of use:',
-                '',
-                'battledeck',
-                'battledeck imagepath',
-                'battledeck --path imagepath',
-                'battledeck -p imagepath',
-                'battledeck --help',
-                'battledeck -?'
-            ]
-        },
-        {
-            header: 'Options',
-            optionList: options
-        },
-        {
-            content: 'Project home: [underline]{https://github.com/JKerney-HunterIndustries/battledeck}'
+const getArgs = signet.enforce(
+    '() => commandLineArgument',
+    function getArgs() {
+        function isValidParmeter(unknownType) {
+            return (unknownType.valid) || (isUndefined(unknownType.valid));
         }
-    ];
 
-    return getUsage(sections);
-}
+        try {
+            const argumentValues = commandLineArgs(options);
+            const argumentKeys = Object.keys(argumentValues);
+
+            const areValid = argumentKeys
+                .map(k => argumentValues[k])
+                .reduce((accum, b) => accum && isValidParmeter(b), true);
+
+            return {
+                value: argumentValues,
+                valid: areValid,
+                isError: false
+            };
+        } catch (e) {
+            return {
+                value: e.message,
+                valid: false,
+                isError: true
+            };
+        }
+    }
+);
+
+const buildUsageInfo = signet.enforce(
+    '() => string',
+    function buildUsageInfo() {
+        const sections = [
+            {
+                header: 'battledeck - the fun and easy way to do improvational presentations',
+                content: 'Hosts images in a directory as a random presentation.'
+            },
+            {
+                header: 'Synopsis',
+                content: [
+                    'Examples of use:',
+                    '',
+                    'battledeck',
+                    'battledeck imagepath',
+                    'battledeck --path imagepath',
+                    'battledeck -p imagepath',
+                    'battledeck --help',
+                    'battledeck -?'
+                ]
+            },
+            {
+                header: 'Options',
+                optionList: options
+            },
+            {
+                header: 'Other Resources',
+                content: [
+                    'Documentation: [underline]{http://bit.ly/battledeckDocs}',
+                    'Project home: [underline]{https://github.com/JKerney-HunterIndustries/battledeck}'
+                ]
+            }
+        ];
+
+        return getUsage(sections);
+    }
+);
 
 // console.log(JSON.stringify(getArgs(), null, 4));
 // console.log(buildUsageInfo());
