@@ -9,9 +9,6 @@ const path = require('path');
 
 const isUndefined = signet.isTypeOf('undefined');
 
-const typeName = 'max_slide_count';
-signet.alias(typeName, 'formattedString<^[1-9]$|^([1-9][0-9]+)$>');
-
 function getParameterType(errorMessage, isItValid, getValue, unknown) {
     try {
         const isValidObject = Boolean(isItValid(unknown));
