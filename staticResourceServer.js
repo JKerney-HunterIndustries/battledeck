@@ -58,7 +58,7 @@ function hostFile(response, filename) {
 }
 
 const tryToHostFile = signet.enforce(
-    'onNoSuchFile => *',
+    'onNoSuchFile => tryToHostFile',
     function (onNoSuchFile) {
         return function (response, filename) {
             if (fileIsServed(filename)) {
