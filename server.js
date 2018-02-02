@@ -5,9 +5,9 @@ const opn = require('opn');
 const fs = require('fs');
 const url = require('url')
 const commandLineArgs = require('./commandLineAgs');
-// const staticServer = require('./staticResourceServer');
 const signet = require('./signetBuilder');
 const router = require('./router')();
+const imageTools = require('./imageTools');
 
 const port = 8713; // BTLE (BATTLE!!!!)
 
@@ -39,35 +39,9 @@ validateCommandLineArguments(myArgs);
 
 let imageDirectory = myArgs.path.value;
 
-
-const isAnImagePath = signet.enforce(
-    'name:string => boolean',
-    function isAnImagePath(name) {
-        const whiteExtentions = ['.jpg', '.png', '.gif', '.jpeg'];
-
-        return whiteExtentions.filter(ext => name.endsWith(ext)).length > 0;
-    }
-);
-
-const shuffle = signet.enforce(
-    'itemsArray:array => array',
-    function shuffle(itemsArray) {
-        let copy = itemsArray.slice(0);
-        let target = [];
-
-        while (copy.length > 0) {
-            const ptr = Math.floor(Math.random() * copy.length);
-            target.push(copy[ptr]);
-            copy.splice(ptr, 1);
-        }
-
-        return target;
-    }
-);
-
 let ptr = 0;
-const baseImages = fs.readdirSync(imageDirectory).filter(isAnImagePath);
-let images = shuffle(baseImages);
+const baseImages = fs.readdirSync(imageDirectory).filter(imageTools.isAnImagePath);
+let images = imageTools.shuffle(baseImages);
 
 function endProgram(response) {
     response.end('<h1>Bye!</h1><br/>' + (new Date()));
@@ -93,14 +67,14 @@ function handleError(response) {
 }
 
 function shuffleImages(response) {
-    images = shuffle(baseImages);
+    images = imageTools.shuffle(baseImages);
     response.end();
 }
 
 const battleUrl = `http://localhost:${port}`;
 
 function handleImageAndErrorRequests(response, filepath) {
-    if (isAnImagePath(filepath)) {
+    if (imageTools.isAnImagePath(filepath)) {
         getImage(response)
     }
     else {
