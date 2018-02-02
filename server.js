@@ -5,6 +5,7 @@ const opn = require('opn');
 const fs = require('fs');
 const url = require('url')
 const commandLineArgs = require('./commandLineAgs');
+const staticServer = require('./staticResourceServer');
 
 const port = 8713; // BTLE (BATTLE!!!!)
 
@@ -90,36 +91,29 @@ function shuffleImages(response) {
 }
 
 const battleUrl = `http://localhost:${port}`;
+function handleRequest(response, filepath) {
+    if (filepath === '/end') {
+        endProgram(response);
+    }
+    else if (filepath === '/shuffle') {
+        shuffleImages(response);
+    }
+    else if (isAnImagePath(filepath)) {
+        getImage(response)
+    }
+    else {
+        handleError(response);
+    }
+}
+
+const serveSite = staticServer(handleRequest);
+
 http
     .createServer(function (request, response) {
         const requestUrl = url.parse(request.url, true);
         const filepath = requestUrl.pathname;
 
-        if (filepath === '/') {
-            showSlideShow(response)
-        }
-        else if (filepath === '/end') {
-            endProgram(response);
-        }
-        else if (filepath === '/shuffle') {
-            shuffleImages(response);
-        }
-        else if (filepath === '/signet.js') {
-            const signetFile = fs.readFileSync(__dirname + '/node_modules/signet/dist/signet.min.js');
-            response.writeHead(200, { 'Content-Type': 'text/plain' });
-            response.end(signetFile, 'text');
-        }
-        else if (filepath === '/signet.min.js.map') {
-            const signetFile = fs.readFileSync(__dirname + '/node_modules/signet/dist/signet.min.js.map');
-            response.writeHead(200, { 'Content-Type': 'text/plain' });
-            response.end(signetFile, 'text');
-        }
-        else if (isAnImagePath(filepath)) {
-            getImage(response)
-        }
-        else {
-            handleError(response)
-        }
+        serveSite(response, filepath);
     })
     .listen(port, function () {
         console.log('ready to rumble!');
