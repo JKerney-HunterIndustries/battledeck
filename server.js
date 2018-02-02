@@ -44,7 +44,7 @@ const baseImages = fs.readdirSync(imageDirectory).filter(imageTools.isAnImagePat
 let images = imageTools.shuffle(baseImages);
 
 function endProgram(response) {
-    response.end('<h1>Bye!</h1><br/>' + (new Date()));
+    response.end('<h1>Bye!</h1><br/>' + (new Date()) + "<br /><br /><br />Only the dead have seen the end of war.<br />.... George Santayana");
     process.abort();
 }
 
