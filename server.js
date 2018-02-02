@@ -71,8 +71,6 @@ function shuffleImages(response) {
     response.end();
 }
 
-const battleUrl = `http://localhost:${port}`;
-
 function handleImageAndErrorRequests(response, filepath) {
     if (imageTools.isAnImagePath(filepath)) {
         getImage(response)
@@ -99,7 +97,7 @@ router.addStaticHtml('/index.html', '/index.html');
 
 router.setPageNotFound(handleImageAndErrorRequests);
 
-
+const battleUrl = `http://localhost:${port}`;
 http
     .createServer(function (request, response) {
         const requestUrl = url.parse(request.url, true);
