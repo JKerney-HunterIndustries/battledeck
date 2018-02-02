@@ -7,6 +7,7 @@ const url = require('url')
 const commandLineArgs = require('./commandLineAgs');
 const staticServer = require('./staticResourceServer');
 const signet = require('./signetBuilder');
+const router = require('./router')(); 
 
 const port = 8713; // BTLE (BATTLE!!!!)
 
@@ -97,14 +98,13 @@ function shuffleImages(response) {
 }
 
 const battleUrl = `http://localhost:${port}`;
+
+router.add('/end', endProgram);
+router.add('/shuffle', shuffleImages);
+router.setPageNotFound(handleRequest)
+
 function handleRequest(response, filepath) {
-    if (filepath === '/end') {
-        endProgram(response);
-    }
-    else if (filepath === '/shuffle') {
-        shuffleImages(response);
-    }
-    else if (isAnImagePath(filepath)) {
+    if (isAnImagePath(filepath)) {
         getImage(response)
     }
     else {
@@ -112,7 +112,7 @@ function handleRequest(response, filepath) {
     }
 }
 
-const serveSite = staticServer(handleRequest);
+const serveSite = staticServer(router.serve);
 
 http
     .createServer(function (request, response) {

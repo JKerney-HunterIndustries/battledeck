@@ -47,7 +47,6 @@ function fileIsServed(filename) {
     return fileKeys.includes(filename);
 }
 
-
 function hostFile(response, filename) {
     const fileInfo = files[filename];
 
