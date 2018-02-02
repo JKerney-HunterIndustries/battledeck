@@ -27,8 +27,13 @@ files['/signet.js'] = asScript('/node_modules/signet/dist/signet.js');
 files['/signet.min.js'] = asScript('/node_modules/signet/dist/signet.min.js');
 files['/signet.min.js.map'] = asScript('/node_modules/signet/dist/signet.min.js.map');
 files['/index.js'] = asScript('/scripts/index.js');
+
 files['/index.css'] = asCss('/index.css');
+
 files['/'] = asHtml('/index.html');
+files['/index'] = asHtml('/index.html');
+files['/index.htm'] = asHtml('/index.html');
+files['/index.html'] = asHtml('/index.html');
 
 const fileKeys = Object.keys(files);
 
