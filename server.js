@@ -81,7 +81,7 @@ function getImage(response) {
 
 function handleError(response) {
     response.writeHead(404, { 'Content-Type': 'text/html' });
-    response.end('<h1>Not found</h1><h2>War... War never changes.</h2>');
+    response.end('<h1>Not found</h1><h2>War... War never changes.</h2><br /><br /><a href="/">Back to battledeck!</a>');
 
 }
 
