@@ -5,9 +5,9 @@ const opn = require('opn');
 const fs = require('fs');
 const url = require('url')
 const commandLineArgs = require('./commandLineAgs');
-const staticServer = require('./staticResourceServer');
+// const staticServer = require('./staticResourceServer');
 const signet = require('./signetBuilder');
-const router = require('./router')(); 
+const router = require('./router')();
 
 const port = 8713; // BTLE (BATTLE!!!!)
 
@@ -99,11 +99,7 @@ function shuffleImages(response) {
 
 const battleUrl = `http://localhost:${port}`;
 
-router.add('/end', endProgram);
-router.add('/shuffle', shuffleImages);
-router.setPageNotFound(handleRequest)
-
-function handleRequest(response, filepath) {
+function handleImageAndErrorRequests(response, filepath) {
     if (isAnImagePath(filepath)) {
         getImage(response)
     }
@@ -112,14 +108,30 @@ function handleRequest(response, filepath) {
     }
 }
 
-const serveSite = staticServer(router.serve);
+router.add('/end', endProgram);
+router.add('/shuffle', shuffleImages);
+
+router.addStaticScript('/signet.js', '/node_modules/signet/dist/signet.js');
+router.addStaticScript('/signet.min.js', '/node_modules/signet/dist/signet.min.js');
+router.addStaticScript('/signet.min.js.map', '/node_modules/signet/dist/signet.min.js.map');
+router.addStaticScript('/index.js', '/scripts/index.js');
+
+router.addStaticCss('/index.css', '/index.css');
+
+router.addStaticHtml('/', '/index.html');
+router.addStaticHtml('/index', '/index.html');
+router.addStaticHtml('/index.htm', '/index.html');
+router.addStaticHtml('/index.html', '/index.html');
+
+router.setPageNotFound(handleImageAndErrorRequests);
+
 
 http
     .createServer(function (request, response) {
         const requestUrl = url.parse(request.url, true);
         const filepath = requestUrl.pathname;
 
-        serveSite(response, filepath);
+        router.serve(response, filepath);
     })
     .listen(port, function () {
         console.log('ready to rumble!');
