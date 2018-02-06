@@ -31,21 +31,29 @@ function getSlideCount() {
     return Number(getSlideCountElement().value);
 }
 
+function enableElement(element) {
+    element.removeAttribute('disabled');    
+}
+
+function disableElement(element) {
+    element.setAttribute('disabled', 'disabled');    
+}
+
+function enableBy(enable, element) {
+    if (enable) {
+        enableElement(element);
+    } else {
+        disableElement(element);
+    }
+}
+
 function togglePresentationLimit() {
     const slideCountElement = getSlideCountElement();
-    if (useSlideCount()) {
-        slideCountElement.removeAttribute('disabled');
-    } else {
-        slideCountElement.setAttribute('disabled', 'disabled');
-    }
+    enableBy(useSlideCount(), slideCountElement);
 
     const limitInMinutes = document.getElementById('limitInMitutes')
     const minuteCount = document.getElementById('minuteCount');
-    if (limitInMinutes.checked) {
-        minuteCount.removeAttribute('disabled');
-    } else {
-        minuteCount.setAttribute('disabled', 'disabled');
-    }
+    enableBy(limitInMinutes.checked, minuteCount);
 }
 
 function togglePresentationLength() {
