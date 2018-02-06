@@ -38,6 +38,24 @@ function toggleMaxCount() {
     } else {
         slideCountElement.setAttribute('disabled', 'disabled');
     }
+
+    const limitInMinutes = document.getElementById('limitInMitutes')
+    const minuteCount = document.getElementById('minuteCount');
+    if (limitInMinutes.checked) {
+        minuteCount.removeAttribute('disabled');
+    } else{
+        minuteCount.setAttribute('disabled', 'disabled');
+    }
+}
+
+function togglePresentationLength() {
+    const enableLimit = document.getElementById('enablePresentationLength');
+    const lengthConfig = document.getElementById('presentationLength');
+    if (enableLimit.checked) {
+        showElement(lengthConfig);
+    } else {
+        hideElement(lengthConfig);
+    }
 }
 
 function showConfiguration() {

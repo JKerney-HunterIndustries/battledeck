@@ -57,8 +57,11 @@ a:visited {
     text-decoration: underline;
 }
 
-.form {
+.outlined {
     border: 1px dotted #999;
+}
+
+.form {
     text-align: left;
 }
 
