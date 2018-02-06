@@ -31,7 +31,7 @@ function getSlideCount() {
     return Number(getSlideCountElement().value);
 }
 
-function toggleMaxCount() {
+function togglePresentationLimit() {
     const slideCountElement = getSlideCountElement();
     if (useSlideCount()) {
         slideCountElement.removeAttribute('disabled');
@@ -43,7 +43,7 @@ function toggleMaxCount() {
     const minuteCount = document.getElementById('minuteCount');
     if (limitInMinutes.checked) {
         minuteCount.removeAttribute('disabled');
-    } else{
+    } else {
         minuteCount.setAttribute('disabled', 'disabled');
     }
 }
@@ -211,10 +211,13 @@ document.addEventListener('keyup', function (event) {
         }
     }
 
-    if (event.keyCode === 32) {
+    const spaceBar = 32;
+    const escapeKey = 27;
+
+    if (event.keyCode === spaceBar) {
         nextSlide()
     }
-    else if (event.keyCode === 27) {
+    else if (event.keyCode === escapeKey) {
         endCurrentPresentation(h1, battleImage, countdownElement);
     }
 });

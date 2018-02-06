@@ -35,14 +35,14 @@
                 <br />
                 <input id='showCountdown' type="checkbox" checked>Show slide timer countdown?</input>
                 <br />
-                <input id='enablePresentationLength' type='checkbox' onclick='togglePresentationLength()'>Limit presentation length</input>
+                <input id='enablePresentationLength' type='checkbox' onclick='togglePresentationLength()'>Change the presentation length limit</input>
                 <table id='presentationLength' class='hidden'>
                     <td>&nbsp;&nbsp;&nbsp;</td>
                     <td class='outlined'>
-                        <input id='noLimit' name='limited' type='radio'onclick='toggleMaxCount()' checked>No limit</input><br />
-                        <input id='enableSlideCount' name='limited' type='radio' onclick='toggleMaxCount()'>Maxim slide count:</input>
+                        <input id='noLimit' name='limited' type='radio'onclick='togglePresentationLimit()' checked>No limit</input><br />
+                        <input id='enableSlideCount' name='limited' type='radio' onclick='togglePresentationLimit()'>Maxim slide count:</input>
                         <input id='slideCount' type='text' value="20" disabled onblur='validateSlideCount()'></input><br />
-                        <input id='limitInMitutes' name='limited' type='radio'onclick='toggleMaxCount()'>Number of Minutes:</input>
+                        <input id='limitInMitutes' name='limited' type='radio'onclick='togglePresentationLimit()'>Number of Minutes:</input>
                         <input id='minuteCount' type='text' value="5" disabled onblur='validateMinuteCount()'></input>
                     </td>
                 </table>
