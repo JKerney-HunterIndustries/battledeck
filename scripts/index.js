@@ -46,10 +46,10 @@ function showConfiguration() {
     var classes = configSection.getAttribute('class');
 
     if (classes.includes('hidden')) {
-        configSection.setAttribute('class', 'textCentered');
+        showElement(configSection);
         configLink.innerText = 'Hide Configuration';
     } else {
-        configSection.setAttribute('class', 'hidden');
+        hideElement(configSection);
         configLink.innerText = 'Show Configuration';
     }
 }
@@ -119,12 +119,20 @@ function getSlideTimeout() {
     return timeout;
 }
 
+function hideElement(element) {
+    element.classList.add('hidden');
+}
+
+function showElement(element) {
+    element.classList.remove('hidden');
+}
+
 function endCurrentPresentation(h1, battleImage, countdownElement) {
     clearInterval(intervalId);
     intervalId = null;
-    battleImage.setAttribute('class', 'hidden');
-    countdownElement.setAttribute('class', 'hidden');
-    h1.setAttribute('class', 'centered');
+    hideElement(battleImage);
+    hideElement(countdownElement);
+    showElement(h1);
 }
 
 let intervalId = null;
@@ -135,20 +143,10 @@ document.addEventListener('keyup', function (event) {
     const hideCountdown = !document.getElementById('showCountdown').checked;
     let slideCount = 1;
 
-    function rumble() {
-        const maxSlideCount = getSlideCount();
-        const timeout = getSlideTimeout();
-        const countSlides = useSlideCount();
-        if (timeout <= 1 || hideCountdown) {
-            countdownElement.setAttribute('class', 'hidden');
-        }
+    h1.setAttribute('class', 'centered');
 
-        battleImage.setAttribute('class', '');
-        h1.setAttribute('class', 'hidden');
-
-        clearInterval(intervalId);
-        battleImage.setAttribute('src', getRandomName());
-        intervalId = setInterval(function () {
+    function progressSlide(countSlides, maxSlideCount) {
+        return function () {
             let countdown = Number(countdownElement.innerText);
             if (countdown === 1) {
                 battleImage.setAttribute('src', getRandomName());
@@ -163,22 +161,40 @@ document.addEventListener('keyup', function (event) {
                 }
             }
 
-
-
             countdownElement.innerText = (countdown <= 1 ? getSlideTimeout() : countdown - 1);
-        }, 1000);
+        };
     }
 
-    if (event.keyCode === 32) {
+    function rumble() {
+        const maxSlideCount = getSlideCount();
+        const timeout = getSlideTimeout();
+        const countSlides = useSlideCount();
+        if (timeout <= 1 || hideCountdown) {
+            hideElement(countdownElement);
+        }
+
+        showElement(battleImage);
+        hideElement(h1);
+
+        clearInterval(intervalId);
+        battleImage.setAttribute('src', getRandomName());
+        intervalId = setInterval(progressSlide(countSlides, maxSlideCount), 1000);
+    }
+
+    function nextSlide() {
         countdownElement.innerText = getSlideTimeout();
         if (isNotRunning(intervalId)) {
-            shuffle(function (error) {
-                countdownElement.setAttribute('class', '');
+            shuffle(function () {
+                showElement(countdownElement);
                 rumble();
             });
         } else {
             rumble();
         }
+    }
+
+    if (event.keyCode === 32) {
+        nextSlide()
     }
     else if (event.keyCode === 27) {
         endCurrentPresentation(h1, battleImage, countdownElement);
