@@ -5,7 +5,6 @@ const opn = require('opn');
 const fs = require('fs');
 const url = require('url')
 const commandLineArgs = require('./commandLineAgs');
-const signet = require('./signetBuilder');
 const router = require('./router')();
 const imageTools = require('./imageTools');
 
