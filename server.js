@@ -86,6 +86,8 @@ router.addStaticScript('/signet.js', '/node_modules/signet/dist/signet.js');
 router.addStaticScript('/signet.min.js', '/node_modules/signet/dist/signet.min.js');
 router.addStaticScript('/signet.min.js.map', '/node_modules/signet/dist/signet.min.js.map');
 router.addStaticScript('/index.js', '/scripts/index.js');
+router.addStaticScript('/moment.js', '/node_modules/moment/min/moment-with-locales.js')
+router.addStaticScript('/moment.min.js', '/node_modules/moment/min/moment-with-locales.min.js')
 
 router.addStaticCss('/index.css', '/index.css');
 

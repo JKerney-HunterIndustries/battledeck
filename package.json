@@ -35,6 +35,7 @@
     "command-line-args": "^5.0.0",
     "command-line-usage": "^4.1.0",
     "is-valid-path": "^0.1.1",
+    "moment": "^2.20.1",
     "opn": "^5.1.0",
     "signet": "^6.5.3"
   },

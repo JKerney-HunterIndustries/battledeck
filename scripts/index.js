@@ -136,11 +136,11 @@ function setSlideTimeOut(timeoutValue) {
 }
 
 function validateTimeout() {
-    let timeout = getSlideTimeout();
+    let timeout = getSlideProgressionTimeout();
     setSlideTimeOut(timeout);
 }
 
-function getSlideTimeout() {
+function getSlideProgressionTimeout() {
     let timeout = getValidValue(getTimeoutElement().value.trim());
     return timeout;
 }
@@ -171,13 +171,13 @@ document.addEventListener('keyup', function (event) {
 
     h1.setAttribute('class', 'centered');
 
-    function progressSlide(countSlides, maxSlideCount) {
+    function progressSlide(limitNumberOfSlides, maxSlideCount, limitPresentationTime, maxPresentationTime) {
         return function () {
             let countdown = Number(countdownElement.innerText);
             if (countdown === 1) {
                 battleImage.setAttribute('src', getRandomName());
 
-                if (countSlides) {
+                if (limitNumberOfSlides) {
                     if (slideCount >= maxSlideCount) {
                         endCurrentPresentation(h1, battleImage, countdownElement);
                         slideCount = 1;
@@ -185,17 +185,29 @@ document.addEventListener('keyup', function (event) {
                     }
                     slideCount += 1;
                 }
+
+                if (limitPresentationTime) {
+                    let now = moment();
+                    let dateEnd = moment(startTime).add(maxPresentationTime, "minutes");
+                    if (dateEnd <= now) {
+                        endCurrentPresentation(h1, battleImage, countdownElement);
+                        slideCount = 1;
+                        return;
+                    }
+                }
             }
 
-            countdownElement.innerText = (countdown <= 1 ? getSlideTimeout() : countdown - 1);
+            countdownElement.innerText = (countdown <= 1 ? getSlideProgressionTimeout() : countdown - 1);
         };
     }
 
     function rumble() {
+        const maxPresentationTime = document.getElementById('minuteCount').value;
+        const limitPresentationTime = document.getElementById('limitInMitutes').checked;
         const maxSlideCount = getSlideCount();
-        const timeout = getSlideTimeout();
-        const countSlides = useSlideCount();
-        if (timeout <= 1 || hideCountdown) {
+        const slideProgressionTimeout = getSlideProgressionTimeout();
+        const limitNumberOfSlides = useSlideCount();
+        if (slideProgressionTimeout <= 1 || hideCountdown) {
             hideElement(countdownElement);
         }
 
@@ -204,13 +216,15 @@ document.addEventListener('keyup', function (event) {
 
         clearInterval(intervalId);
         battleImage.setAttribute('src', getRandomName());
-        intervalId = setInterval(progressSlide(countSlides, maxSlideCount), 1000);
+        intervalId = setInterval(progressSlide(limitNumberOfSlides, maxSlideCount, limitPresentationTime, maxPresentationTime), 1000);
     }
 
+    var startTime = moment();
     function nextSlide() {
-        countdownElement.innerText = getSlideTimeout();
+        countdownElement.innerText = getSlideProgressionTimeout();
         if (isNotRunning(intervalId)) {
             shuffle(function () {
+                Date();
                 showElement(countdownElement);
                 rumble();
             });
