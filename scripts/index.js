@@ -26,6 +26,16 @@ function validateSlideCount() {
     }
 }
 
+function validateMinuteCount() {
+    const minuteCountElement = document.getElementById('minuteCount');
+    const value = Number(minuteCountElement.value.trim());
+    if (isValidInput(value)) {
+        minuteCountElement.value = value;
+    } else {
+        minuteCountElement.value = 5;
+    }
+}
+
 function getSlideCount() {
     validateSlideCount();
     return Number(getSlideCountElement().value);
