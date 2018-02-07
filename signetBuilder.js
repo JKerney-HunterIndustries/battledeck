@@ -13,6 +13,7 @@ signet.defineDuckType('response', {
 
 signet.alias('route', 'string');
 signet.alias('path', 'string');
+signet.alias('html', 'string');
 signet.alias('contentType', 'string');
 signet.alias('routerCallback', 'function<response => undefined>');
 signet.alias('routeNotFoundCallback', 'function<response, string => undefined>');

@@ -25,10 +25,24 @@ function build() {
         }
     }
 
+    function hostHtmlString(html) {
+        return function (response) {
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.end(html, 'text');
+        }
+    }
+
     const addStatic = signet.enforce(
         'route, path, contentType => undefined',
         function addStatic(route, path, contentType) {
             add(route, hostFile(__dirname + path, contentType));
+        }
+    );
+
+    const addHtml = signet.enforce(
+        'route, html => undefined',
+        function addHtml(route, html) {
+            add(route, hostHtmlString(html));
         }
     );
 
@@ -77,6 +91,7 @@ function build() {
         addStaticHtml: addStaticHtml,
         addStaticCss: addStaticCss,
         addStaticScript: addStaticScript,
+        addHtml: addHtml,
 
         setPageNotFound: setPageNotFound,
 

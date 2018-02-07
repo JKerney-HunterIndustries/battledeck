@@ -7,6 +7,7 @@ const url = require('url')
 const commandLineArgs = require('./commandLineAgs');
 const router = require('./router')();
 const imageTools = require('./imageTools');
+const stringProcessor = require('./stringProcessor')();
 
 const port = 8713; // BTLE (BATTLE!!!!)
 
@@ -91,10 +92,11 @@ router.addStaticScript('/moment.min.js', '/node_modules/moment/min/moment-with-l
 
 router.addStaticCss('/index.css', '/index.css');
 
-router.addStaticHtml('/', '/index.html');
-router.addStaticHtml('/index', '/index.html');
-router.addStaticHtml('/index.htm', '/index.html');
-router.addStaticHtml('/index.html', '/index.html');
+const homepage = stringProcessor.processFile('./index.html');
+router.addHtml('/', homepage);
+router.addHtml('/index', homepage);
+router.addHtml('/index.htm', homepage);
+router.addHtml('/index.html', homepage);
 
 router.setPageNotFound(handleImageAndErrorRequests);
 
