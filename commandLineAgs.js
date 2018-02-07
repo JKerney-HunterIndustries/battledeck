@@ -6,6 +6,7 @@ const getUsage = require('command-line-usage');
 const isValidPath = require('is-valid-path');
 const fs = require('fs');
 const path = require('path');
+const version = require('./versionService');
 
 const isUndefined = signet.isTypeOf('undefined');
 
@@ -59,6 +60,12 @@ const options = [
         defaultValue: pathType('./'),
         typeLabel: '[italic]{image_folder_path}',
         description: "The path where images to be used as slides are contained."
+    },
+    {
+        name: 'version',
+        alias: 'v',
+        type: Boolean,
+        description: "Displays the current version of battledeck."
     }
 ];
 
@@ -109,8 +116,12 @@ const buildUsageInfo = signet.enforce(
                     'battledeck imagepath',
                     'battledeck --path imagepath',
                     'battledeck -p imagepath',
+                    '',
                     'battledeck --help',
-                    'battledeck -?'
+                    'battledeck -?',
+                    '',
+                    'battledeck --version',
+                    'battledeck -v'
                 ]
             },
             {
