@@ -234,7 +234,7 @@ document.addEventListener('keyup', function (event) {
         countdownElement.innerText = getSlideProgressionTimeout();
         if (isNotRunning(intervalId)) {
             shuffle(function () {
-                Date();
+                startTime = moment();
                 showElement(countdownElement);
                 rumble();
             });
