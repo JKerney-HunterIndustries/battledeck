@@ -39,7 +39,7 @@ function pathType(unknownString) {
 
     function getPathString(string) {
         let result = string.trim();
-        return result.endsWith('\\') || result.endsWith('//') ? result : (result + path.sep);
+        return process.cwd() + '/' + (result.endsWith('\\') || result.endsWith('//') ? result : (result + path.sep));
     }
 
     return getParameterType(err, isValid, getPathString, unknownString)

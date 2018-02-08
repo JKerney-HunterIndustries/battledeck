@@ -97,7 +97,7 @@ router.addStaticScript('/moment.min.js', '/node_modules/moment/min/moment-with-l
 
 router.addStaticCss('/index.css', '/index.css');
 
-const homepage = stringProcessor.processFile('./index.html');
+const homepage = stringProcessor.processFile(__dirname + '/index.html');
 router.addHtml('/', homepage);
 router.addHtml('/index', homepage);
 router.addHtml('/index.htm', homepage);
