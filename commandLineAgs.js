@@ -100,12 +100,15 @@ const getArgs = signet.enforce(
 );
 
 const buildUsageInfo = signet.enforce(
-    '() => string',
-    function buildUsageInfo() {
+    'version => string',
+    function buildUsageInfo(version) {
         const sections = [
             {
                 header: 'battledeck - the fun and easy way to do improvational presentations',
-                content: 'Hosts images in a directory as a random presentation.'
+                content: [
+                    `Version: ${version}`,
+                    'Hosts images in a directory as a random presentation.'
+                ]
             },
             {
                 header: 'Synopsis',

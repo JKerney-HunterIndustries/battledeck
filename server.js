@@ -15,8 +15,9 @@ let myArgsState = commandLineArgs.getArgs();
 let myArgs = myArgsState.value;
 
 function validateCommandLineArguments(myArgs) {
+    const version = require('./versionService');
     if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
-        console.log(commandLineArgs.buildUsageInfo());
+        console.log(commandLineArgs.buildUsageInfo(version));
     }
 
     if (myArgsState.isError) {
@@ -30,7 +31,11 @@ function validateCommandLineArguments(myArgs) {
         console.log('\n');
     }
 
-    if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
+    if (myArgs.version && !myArgs.help) {
+        console.log(`battledeck version: ${version}`);
+    }
+
+    if ((!myArgsState.valid) || myArgsState.isError || myArgs.help || myArgs.version) {
         process.exit();
     }
 }
