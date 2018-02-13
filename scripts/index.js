@@ -52,7 +52,7 @@ function togglePresentationLimit() {
     const slideCountElement = get.slideCountElement();
     enableBy(useSlideCount(), slideCountElement);
 
-    const limitInMinutes = getLimitInMinutesElement(document);
+    const limitInMinutes = get.limitInMinutesElement(document);
     const minuteCount = getMinuteCountElement(document);
     enableBy(limitInMinutes.checked, minuteCount);
 }
@@ -148,7 +148,7 @@ function getValidValue(timeoutValue) {
 function setSlideTimeOut(timeoutValue) {
     let timeout = getValidValue(timeoutValue);
     let element = get.timeoutElement();
-    getCountdownElement(document).innerText = timeout;
+    get.countdownElement(document).innerText = timeout;
     element.value = timeout;
 }
 
@@ -160,6 +160,10 @@ function validateTimeout() {
 function getSlideProgressionTimeout() {
     let timeout = getValidValue(get.timeoutElement().value.trim());
     return timeout;
+}
+
+function enableElement(element) {
+    element.removeAttribute('disabled');
 }
 
 function hideElement(element) {
@@ -181,9 +185,9 @@ function endCurrentPresentation(h1, battleImage, countdownElement) {
 let intervalId = null;
 document.addEventListener('keyup', function (event) {
     const battleImageElement = get.battleImageElement(document);
-    const infoBlockElement = getInfoBlockElement(document);
-    const countdownElement = getCountdownElement(document);
-    const hideCountdown = !getShowCountdownElement(document).checked;
+    const infoBlockElement = get.infoBlockElement(document);
+    const countdownElement = get.countdownElement(document);
+    const hideCountdown = !get.showCountdownElement(document).checked;
     let slideCount = 1;
 
     infoBlockElement.setAttribute('class', 'centered');
@@ -220,7 +224,7 @@ document.addEventListener('keyup', function (event) {
 
     function rumble() {
         const maxPresentationTime = getMinuteCountElement(document).value;
-        const limitPresentationTime = getLimitInMinutesElement(document).checked;
+        const limitPresentationTime = get.limitInMinutesElement(document).checked;
         const maxSlideCount = getSlideCount();
         const slideProgressionTimeout = getSlideProgressionTimeout();
         const limitNumberOfSlides = useSlideCount();
