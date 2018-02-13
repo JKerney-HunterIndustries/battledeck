@@ -1,7 +1,7 @@
 'use strict';
 
 const isValidInput = signet.isTypeOf('leftBoundedInt<1>');
-const get = doc(document);
+const get = getFrom(document);
 
 function useSlideCount() {
     return get.enableSlideCountElement().checked;
@@ -17,12 +17,8 @@ function validateSlideCount() {
     }
 }
 
-function getMinuteCountElement(document) {
-    return document.getElementById('minuteCount');
-}
-
 function validateMinuteCount() {
-    const minuteCountElement = getMinuteCountElement(document);
+    const minuteCountElement = get.minuteCountElement(document);
     const value = Number(minuteCountElement.value.trim());
     if (isValidInput(value)) {
         minuteCountElement.value = value;
@@ -34,10 +30,6 @@ function validateMinuteCount() {
 function getSlideCount() {
     validateSlideCount();
     return Number(get.slideCountElement().value);
-}
-
-function disableElement(element) {
-    element.setAttribute('disabled', 'disabled');
 }
 
 function enableBy(enable, element) {
@@ -53,21 +45,13 @@ function togglePresentationLimit() {
     enableBy(useSlideCount(), slideCountElement);
 
     const limitInMinutes = get.limitInMinutesElement(document);
-    const minuteCount = getMinuteCountElement(document);
+    const minuteCount = get.minuteCountElement(document);
     enableBy(limitInMinutes.checked, minuteCount);
 }
 
-function getEnablePresentationLengthElement(document) {
-    return document.getElementById('enablePresentationLength');
-}
-
-function getPresentationLengthElement(document) {
-    return document.getElementById('presentationLength');
-}
-
 function togglePresentationLength() {
-    const enableLimit = getEnablePresentationLengthElement(document);
-    const lengthConfig = getPresentationLengthElement(document);
+    const enableLimit = get.enablePresentationLengthElement(document);
+    const lengthConfig = get.presentationLengthElement(document);
     if (enableLimit.checked) {
         showElement(lengthConfig);
     } else {
@@ -75,17 +59,9 @@ function togglePresentationLength() {
     }
 }
 
-function getConfigSectionElement(document) {
-    return document.getElementById('configSection');
-}
-
-function getConfigLinkElement(document) {
-    return document.getElementById('configLink');
-}
-
 function showConfiguration() {
-    var configSection = getConfigSectionElement(document);
-    var configLink = getConfigLinkElement(document);
+    var configSection = get.configSectionElement(document);
+    var configLink = get.configLinkElement(document);
     var classes = configSection.getAttribute('class');
 
     if (classes.includes('hidden')) {
@@ -162,6 +138,10 @@ function getSlideProgressionTimeout() {
     return timeout;
 }
 
+function disableElement(element) {
+    element.setAttribute('disabled', 'disabled');
+}
+
 function enableElement(element) {
     element.removeAttribute('disabled');
 }
@@ -223,7 +203,7 @@ document.addEventListener('keyup', function (event) {
     }
 
     function rumble() {
-        const maxPresentationTime = getMinuteCountElement(document).value;
+        const maxPresentationTime = get.minuteCountElement(document).value;
         const limitPresentationTime = get.limitInMinutesElement(document).checked;
         const maxSlideCount = getSlideCount();
         const slideProgressionTimeout = getSlideProgressionTimeout();

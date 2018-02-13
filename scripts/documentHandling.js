@@ -1,12 +1,13 @@
 'use strict';
 
-function doc(document) {
+function getFrom(document) {
 
     function getElementById(id) {
         return document.getElementById(id);
     }
 
-    const getLimitInMinutesElement = () => getElementById('limitInMitutes');
+    const getConfigSectionElement = () => getElementById('configSection');
+    const getConfigLinkElement = () => getElementById('configLink');
 
     return {
         timeoutElement: () => getElementById('timeout'),
@@ -16,6 +17,15 @@ function doc(document) {
         infoBlockElement: () => getElementById('infoBlock'),
         countdownElement: () => getElementById('countdown'),
         showCountdownElement: () => getElementById('showCountdown'),
-        limitInMinutesElement: getLimitInMinutesElement
+        limitInMinutesElement: () => getElementById('limitInMitutes'),
+        minuteCountElement: () => getElementById('minuteCount'),
+        enablePresentationLengthElement: () => getElementById('enablePresentationLength'),
+        presentationLengthElement: () => getElementById('presentationLength'),
+        configSectionElement: () => getConfigSectionElement,
+        configLinkElement: getConfigLinkElement
     };
+}
+
+function doc(document) {
+
 }
