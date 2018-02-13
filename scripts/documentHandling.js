@@ -1,13 +1,5 @@
 'use strict';
 
-function getSlideCountElement() {
-    return document.getElementById('slideCount');
-}
-
-function getBattleImageElement(document) {
-    return document.getElementById('battle-image');
-}
-
 function getInfoBlockElement(document) {
     return document.getElementById('infoBlock');
 }
@@ -29,20 +21,15 @@ function getLimitInMinutesElement(document) {
 }
 
 function doc(document) {
-    const timeout = 'timeout';
-    const enableSlideCount = 'enableSlideCount';
 
-
-    function getTimeoutElement() {
-        return document.getElementById(timeout);
-    }
-
-    function getEnableSlideCountElement() {
-        return document.getElementById(enableSlideCount);
+    function getElementById(id) {
+        return document.getElementById(id);
     }
 
     return {
-        timeoutElement: getTimeoutElement,
-        enableSlideCountElement: getEnableSlideCountElement
+        timeoutElement: () => getElementById('timeout'),
+        enableSlideCountElement: () => getElementById('enableSlideCount'),
+        slideCountElement: () => getElementById('slideCount'),
+        battleImageElement: () => getElementById('battle-image')
     };
 }

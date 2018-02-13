@@ -8,7 +8,7 @@ function useSlideCount() {
 }
 
 function validateSlideCount() {
-    const slideCountElement = getSlideCountElement();
+    const slideCountElement = get.slideCountElement();
     const value = Number(slideCountElement.value.trim());
     if (isValidInput(value)) {
         slideCountElement.value = value;
@@ -33,7 +33,7 @@ function validateMinuteCount() {
 
 function getSlideCount() {
     validateSlideCount();
-    return Number(getSlideCountElement().value);
+    return Number(get.slideCountElement().value);
 }
 
 function disableElement(element) {
@@ -49,7 +49,7 @@ function enableBy(enable, element) {
 }
 
 function togglePresentationLimit() {
-    const slideCountElement = getSlideCountElement();
+    const slideCountElement = get.slideCountElement();
     enableBy(useSlideCount(), slideCountElement);
 
     const limitInMinutes = getLimitInMinutesElement(document);
@@ -180,7 +180,7 @@ function endCurrentPresentation(h1, battleImage, countdownElement) {
 
 let intervalId = null;
 document.addEventListener('keyup', function (event) {
-    const battleImageElement = getBattleImageElement(document);
+    const battleImageElement = get.battleImageElement(document);
     const infoBlockElement = getInfoBlockElement(document);
     const countdownElement = getCountdownElement(document);
     const hideCountdown = !getShowCountdownElement(document).checked;
