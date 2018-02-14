@@ -213,7 +213,9 @@ document.addEventListener('keyup', function (event) {
         const maxSlideCount = getSlideCount();
         const slideProgressionTimeout = getSlideProgressionTimeout();
         const limitNumberOfSlides = useSlideCount();
-        if (slideProgressionTimeout <= 1 || hideCountdown) {
+        const autoAdvance = get.autoAdvanceElement().isChecked();
+
+        if (slideProgressionTimeout <= 1 || hideCountdown || (!autoAdvance)) {
             hideElement(countdownElement);
         }
 
@@ -222,7 +224,11 @@ document.addEventListener('keyup', function (event) {
 
         clearInterval(intervalId);
         setRandomImage(battleImageElement);
-        intervalId = setInterval(progressSlide(limitNumberOfSlides, maxSlideCount, limitPresentationTime, maxPresentationTime), 1000);
+
+        if(autoAdvance)
+        {
+            intervalId = setInterval(progressSlide(limitNumberOfSlides, maxSlideCount, limitPresentationTime, maxPresentationTime), 1000);
+        }
     }
 
     var startTime = moment();
