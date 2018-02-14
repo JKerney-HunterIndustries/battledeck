@@ -52,11 +52,22 @@ function togglePresentationLimit() {
 function togglePresentationLength() {
     const enableLimit = get.enablePresentationLengthElement(document);
     const lengthConfig = get.presentationLengthElement(document);
-    if (enableLimit.checked) {
-        showElement(lengthConfig);
-    } else {
-        hideElement(lengthConfig);
-    }
+
+    lengthConfig.isVisibleIf(enableLimit.isChecked());
+}
+
+function toggleAutoAdvance() {
+    const showAutoAdvance = get.showAutoAdvanceElement(document);
+    const autoAdvanceSettings = get.autoAdvanceSettingsElement(document);
+    
+    autoAdvanceSettings.isVisibleIf(showAutoAdvance.isChecked());
+}
+
+function toggleEnableAutoAdvance() {
+    const autoAdvance = get.autoAdvanceElement(document);
+    const timeout = get.timeoutElement(document);
+
+    timeout.enableIf(autoAdvance.isChecked());
 }
 
 function showConfiguration() {

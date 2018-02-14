@@ -30,9 +30,9 @@ function getFrom(document) {
             'enable:boolean => undefined',
             function (enable) {
                 if (enable) {
-                    element.enable();
+                    enableElement(element);
                 } else {
-                    element.disable();
+                    disableElement(element);
                 }
             }
         );
@@ -55,11 +55,23 @@ function getFrom(document) {
     }
 
     function toggleHidden(element) {
-        if (isElementHidden(element)) {
-            showElement(element);
-        } else {
-            hideElememnt(element);
+        isVisibleIf(element)(isElementHidden(element));
+    }
+
+    function isVisibleIf(element) {
+        function isVisibleIf(predicateValue) {
+            if (predicateValue) {
+                showElement(element);
+            } else {
+                hideElememnt(element);
+            }
         }
+
+        return isVisibleIf;
+    }
+
+    function isChecked(element) {
+        return element.checked;
     }
 
     function setInnerTextBy(element) {
@@ -88,13 +100,15 @@ function getFrom(document) {
             toggleVisible:  () => toggleHidden(element),
             isHidden:       () => isElementHidden(element),
             enable:         () => enableElement(element),
-            enableIf:       enableIf(element),
             disable:        () => disableElement(element),
             isDisabled:     () => isElementDisabled(element),
             center:         () => centerElement(element),
             getClasses:     () => getClasses(element),
+            isChecked:      () => isChecked(element),
             setInnerTextBy: setInnerTextBy(element),
             setAttribute:   setAttribute(element),
+            isVisibleIf:    isVisibleIf(element),
+            enableIf:       enableIf(element),            
             
             get element() {
                 return element;
@@ -121,18 +135,21 @@ function getFrom(document) {
     }
 
     return {
-        timeoutElement:                  () => getElementById('timeout'),
-        enableSlideCountElement:         () => getElementById('enableSlideCount'),
-        slideCountElement:               () => getElementById('slideCount'),
+        autoAdvanceElement:              () => getElementById('autoAdvance'),
+        autoAdvanceSettingsElement:      () => getElementById('autoAdvanceSettings'),
         battleImageElement:              () => getElementById('battle-image'),
-        infoBlockElement:                () => getElementById('infoBlock'),
+        configLinkElement:               () => getElementById('configLink'),
+        configSectionElement:            () => getElementById('configSection'),
         countdownElement:                () => getElementById('countdown'),
-        showCountdownElement:            () => getElementById('showCountdown'),
+        enablePresentationLengthElement: () => getElementById('enablePresentationLength'),
+        enableSlideCountElement:         () => getElementById('enableSlideCount'),
+        infoBlockElement:                () => getElementById('infoBlock'),
         limitInMinutesElement:           () => getElementById('limitInMitutes'),
         minuteCountElement:              () => getElementById('minuteCount'),
-        enablePresentationLengthElement: () => getElementById('enablePresentationLength'),
         presentationLengthElement:       () => getElementById('presentationLength'),
-        configSectionElement:            () => getElementById('configSection'),
-        configLinkElement:               () => getElementById('configLink')
+        showCountdownElement:            () => getElementById('showCountdown'),
+        slideCountElement:               () => getElementById('slideCount'),
+        showAutoAdvanceElement:          () => getElementById('showAutoAdvance'),
+        timeoutElement:                  () => getElementById('timeout')
     };
 }
