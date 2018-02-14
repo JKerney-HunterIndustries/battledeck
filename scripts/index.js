@@ -34,19 +34,19 @@ function getSlideCount() {
 
 function enableBy(enable, element) {
     if (enable) {
-        enableElement(element);
+        element.enable();
     } else {
-        disableElement(element);
+        element.disable();
     }
 }
 
 function togglePresentationLimit() {
     const slideCountElement = get.slideCountElement();
-    enableBy(useSlideCount(), slideCountElement);
+    slideCountElement.enableIf(useSlideCount());
 
     const limitInMinutes = get.limitInMinutesElement(document);
     const minuteCount = get.minuteCountElement(document);
-    enableBy(limitInMinutes.checked, minuteCount);
+    minuteCount.enableIf(limitInMinutes.checked);
 }
 
 function togglePresentationLength() {
@@ -62,15 +62,9 @@ function togglePresentationLength() {
 function showConfiguration() {
     var configSection = get.configSectionElement(document);
     var configLink = get.configLinkElement(document);
-    var classes = configSection.getAttribute('class');
 
-    if (classes.includes('hidden')) {
-        showElement(configSection);
-        configLink.innerText = 'Hide Configuration';
-    } else {
-        hideElement(configSection);
-        configLink.innerText = 'Show Configuration';
-    }
+    configSection.toggleVisible();
+    configLink.setInnerTextBy(configSection.isHidden(), 'Show Configuration', 'Hide Configuration');
 }
 
 function getNewXhr() {
@@ -138,20 +132,16 @@ function getSlideProgressionTimeout() {
     return timeout;
 }
 
-function disableElement(element) {
-    element.setAttribute('disabled', 'disabled');
-}
-
 function enableElement(element) {
-    element.removeAttribute('disabled');
+    element.enable();
 }
 
 function hideElement(element) {
-    element.classList.add('hidden');
+    element.hide();
 }
 
 function showElement(element) {
-    element.classList.remove('hidden');
+    element.show();
 }
 
 function endCurrentPresentation(h1, battleImage, countdownElement) {
@@ -170,13 +160,13 @@ document.addEventListener('keyup', function (event) {
     const hideCountdown = !get.showCountdownElement(document).checked;
     let slideCount = 1;
 
-    infoBlockElement.setAttribute('class', 'centered');
+    infoBlockElement.center();
 
     function progressSlide(limitNumberOfSlides, maxSlideCount, limitPresentationTime, maxPresentationTime) {
         return function () {
             let countdown = Number(countdownElement.innerText);
             if (countdown === 1) {
-                battleImageElement.setAttribute('src', getRandomName());
+                setRandomImage(battleImageElement);
 
                 if (limitNumberOfSlides) {
                     if (slideCount >= maxSlideCount) {
@@ -202,6 +192,10 @@ document.addEventListener('keyup', function (event) {
         };
     }
 
+    function setRandomImage(imageElement) {
+        return imageElement.setAttribute('src', getRandomName());
+    }
+
     function rumble() {
         const maxPresentationTime = get.minuteCountElement(document).value;
         const limitPresentationTime = get.limitInMinutesElement(document).checked;
@@ -212,11 +206,11 @@ document.addEventListener('keyup', function (event) {
             hideElement(countdownElement);
         }
 
-        showElement(battleImageElement);
+        battleImageElement.show();
         hideElement(infoBlockElement);
 
         clearInterval(intervalId);
-        battleImageElement.setAttribute('src', getRandomName());
+        setRandomImage(battleImageElement);
         intervalId = setInterval(progressSlide(limitNumberOfSlides, maxSlideCount, limitPresentationTime, maxPresentationTime), 1000);
     }
 
