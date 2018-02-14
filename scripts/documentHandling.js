@@ -25,19 +25,6 @@ function getFrom(document) {
         element.removeAttribute('disabled');
     }
 
-    function enableIf(element) {
-        return signet.enforce(
-            'enable:boolean => undefined',
-            function (enable) {
-                if (enable) {
-                    enableElement(element);
-                } else {
-                    disableElement(element);
-                }
-            }
-        );
-    }
-
     function disableElement(element) {
         element.setAttribute('disabled', 'disabled');
     }
@@ -59,15 +46,29 @@ function getFrom(document) {
     }
 
     function isVisibleIf(element) {
-        function isVisibleIf(predicateValue) {
-            if (predicateValue) {
-                showElement(element);
-            } else {
-                hideElememnt(element);
+        return signet.enforce(
+            'predicateValue:boolean => undefined',
+            function (predicateValue) {
+                if (predicateValue) {
+                    showElement(element);
+                } else {
+                    hideElememnt(element);
+                }
             }
-        }
+        );
+    }
 
-        return isVisibleIf;
+    function enableIf(element) {
+        return signet.enforce(
+            'enable:boolean => undefined',
+            function (enable) {
+                if (enable) {
+                    enableElement(element);
+                } else {
+                    disableElement(element);
+                }
+            }
+        );
     }
 
     function isChecked(element) {
@@ -95,21 +96,21 @@ function getFrom(document) {
 
     function wrap(element) {
         return {
-            hide:           () => hideElememnt(element),
-            show:           () => showElement(element),
-            toggleVisible:  () => toggleHidden(element),
-            isHidden:       () => isElementHidden(element),
-            enable:         () => enableElement(element),
-            disable:        () => disableElement(element),
-            isDisabled:     () => isElementDisabled(element),
-            center:         () => centerElement(element),
-            getClasses:     () => getClasses(element),
-            isChecked:      () => isChecked(element),
+            hide: () => hideElememnt(element),
+            show: () => showElement(element),
+            toggleVisible: () => toggleHidden(element),
+            isHidden: () => isElementHidden(element),
+            enable: () => enableElement(element),
+            disable: () => disableElement(element),
+            isDisabled: () => isElementDisabled(element),
+            center: () => centerElement(element),
+            getClasses: () => getClasses(element),
+            isChecked: () => isChecked(element),
             setInnerTextBy: setInnerTextBy(element),
-            setAttribute:   setAttribute(element),
-            isVisibleIf:    isVisibleIf(element),
-            enableIf:       enableIf(element),            
-            
+            setAttribute: setAttribute(element),
+            isVisibleIf: isVisibleIf(element),
+            enableIf: enableIf(element),
+
             get element() {
                 return element;
             },
@@ -135,21 +136,21 @@ function getFrom(document) {
     }
 
     return {
-        autoAdvanceElement:              () => getElementById('autoAdvance'),
-        autoAdvanceSettingsElement:      () => getElementById('autoAdvanceSettings'),
-        battleImageElement:              () => getElementById('battle-image'),
-        configLinkElement:               () => getElementById('configLink'),
-        configSectionElement:            () => getElementById('configSection'),
-        countdownElement:                () => getElementById('countdown'),
+        autoAdvanceElement: () => getElementById('autoAdvance'),
+        autoAdvanceSettingsElement: () => getElementById('autoAdvanceSettings'),
+        battleImageElement: () => getElementById('battle-image'),
+        configLinkElement: () => getElementById('configLink'),
+        configSectionElement: () => getElementById('configSection'),
+        countdownElement: () => getElementById('countdown'),
         enablePresentationLengthElement: () => getElementById('enablePresentationLength'),
-        enableSlideCountElement:         () => getElementById('enableSlideCount'),
-        infoBlockElement:                () => getElementById('infoBlock'),
-        limitInMinutesElement:           () => getElementById('limitInMitutes'),
-        minuteCountElement:              () => getElementById('minuteCount'),
-        presentationLengthElement:       () => getElementById('presentationLength'),
-        showCountdownElement:            () => getElementById('showCountdown'),
-        slideCountElement:               () => getElementById('slideCount'),
-        showAutoAdvanceElement:          () => getElementById('showAutoAdvance'),
-        timeoutElement:                  () => getElementById('timeout')
+        enableSlideCountElement: () => getElementById('enableSlideCount'),
+        infoBlockElement: () => getElementById('infoBlock'),
+        limitInMinutesElement: () => getElementById('limitInMitutes'),
+        minuteCountElement: () => getElementById('minuteCount'),
+        presentationLengthElement: () => getElementById('presentationLength'),
+        showCountdownElement: () => getElementById('showCountdown'),
+        slideCountElement: () => getElementById('slideCount'),
+        showAutoAdvanceElement: () => getElementById('showAutoAdvance'),
+        timeoutElement: () => getElementById('timeout')
     };
 }
