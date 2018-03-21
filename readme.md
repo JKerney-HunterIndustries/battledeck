@@ -2,7 +2,7 @@ Battledeck
 ==========
 
 
-![NPM Version](https://img.shields.io/npm/v/battledeck.svg?link=https://www.npmjs.com/package/battledeck&?link=https://www.npmjs.com/package/battledeck) ![NPM Downloads](https://img.shields.io/npm/dt/battledeck.svg) ![License MIT](https://img.shields.io/npm/l/battledeck.svg) <a href='https://david-dm.org/JKerney-HunterIndustries/battledeck' target='https://david-dm.org/JKerney-HunterIndustries/battledeck' rel='noopener noreferrer'><img src='https://david-dm.org/JKerney-HunterIndustries/battledeck.svg' alt='Dependencies' /></a>
+<a href='https://www.npmjs.com/package/battledeck'><img src='https://img.shields.io/npm/v/battledeck.svg?link=https://www.npmjs.com/package/battledeck&?link=https://www.npmjs.com/package/battledeck' alt='NPM Version' /> </a> <a href='https://npm-stat.com/charts.html?package=battledeck'> <img src='https://img.shields.io/npm/dt/battledeck.svg' alt='NPM Downloads'/></a> <a href='https://opensource.org/licenses/MIT'><img src='https://img.shields.io/npm/l/battledeck.svg' alt='License MIT'/></a><a href='https://david-dm.org/JKerney-HunterIndustries/battledeck'><img src='https://david-dm.org/JKerney-HunterIndustries/battledeck.svg' alt='Dependencies' /></a>
 
 ---
 
