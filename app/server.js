@@ -1,12 +1,13 @@
 'use strict';
 
-function server() {
+function server(
+    fs,
+    http,
+    opn,
+    path,
+    url
+) {
     return function () {
-        const path = require('path');
-        const http = require('http');
-        const opn = require('opn');
-        const fs = require('fs');
-        const url = require('url')
         const commandLineArgs = require('../commandLineAgs');
         const router = require('../router')();
         const imageTools = require('../imageTools');
