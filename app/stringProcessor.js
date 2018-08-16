@@ -1,13 +1,12 @@
 'use strict';
 
-function stringProcessor() {
-    const version = require('../versionService');
-    const fs = require('fs');
-
-
+function stringProcessor(
+    appVersion,
+    fs
+) {
     function build() {
         const variables = {
-            version: version
+            version: appVersion
         }
 
         const tokenNames = Object.keys(variables);
