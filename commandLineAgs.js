@@ -29,7 +29,7 @@ function getParameterType(errorMessage, isItValid, getValue, unknown) {
 function pathType(unknownString) {
     let trimmed = unknownString.trim();
     let isPath = isValidPath(trimmed);
-    let err = `Path must be a valid path to a directory. Instead given ${trimmed}`;
+    let err = `Path must be a valid path to a directory. Instead given ` + trimmed;
 
     function isValid(value) {
         let info = isPath ? fs.lstatSync(value) : null;
@@ -58,7 +58,7 @@ const options = [
         type: pathType,
         defaultOption: true,
         defaultValue: pathType('./'),
-        typeLabel: '[italic]{image_folder_path}',
+        typeLabel: '{italic image_folder_path}',
         description: "The path where images to be used as slides are contained."
     },
     {
@@ -106,7 +106,7 @@ const buildUsageInfo = signet.enforce(
             {
                 header: 'battledeck - the fun and easy way to do improvational presentations',
                 content: [
-                    `Version: ${version}`,
+                    `Version: ` + version,
                     'Hosts images in a directory as a random presentation.'
                 ]
             },
@@ -134,8 +134,8 @@ const buildUsageInfo = signet.enforce(
             {
                 header: 'Other Resources',
                 content: [
-                    'Documentation: [underline]{http://bit.ly/battledeckDocs}',
-                    'Project home: [underline]{https://github.com/JKerney-HunterIndustries/battledeck}'
+                    'Documentation: {underline http://bit.ly/battledeckDocs}',
+                    'Project home: {underline https://github.com/JKerney-HunterIndustries/battledeck}'
                 ]
             }
         ];
