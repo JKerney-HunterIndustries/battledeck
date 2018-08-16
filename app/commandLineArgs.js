@@ -1,10 +1,10 @@
 'use strict';
 
-function commandLineArgs() {
-
+function commandLineArgs(
+    commandArgs,
+    commandLineUsage
+) {
     const signet = require('../signetBuilder');
-    const commandLineArgs = require('command-line-args');
-    const getUsage = require('command-line-usage');
     const isValidPath = require('is-valid-path');
     const fs = require('fs');
     const path = require('path');
@@ -79,7 +79,7 @@ function commandLineArgs() {
             }
 
             try {
-                const argumentValues = commandLineArgs(options);
+                const argumentValues = commandArgs(options);
                 const argumentKeys = Object.keys(argumentValues);
 
                 const areValid = argumentKeys
@@ -142,7 +142,7 @@ function commandLineArgs() {
                 }
             ];
 
-            return getUsage(sections);
+            return commandLineUsage(sections);
         }
     );
 
