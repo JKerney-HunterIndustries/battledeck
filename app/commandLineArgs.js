@@ -2,12 +2,12 @@
 
 function commandLineArgs(
     commandArgs,
-    commandLineUsage
+    commandLineUsage,
+    isValidPath,
+    fs,
+    path
 ) {
     const signet = require('../signetBuilder');
-    const isValidPath = require('is-valid-path');
-    const fs = require('fs');
-    const path = require('path');
     const version = require('../versionService');
 
     const isUndefined = signet.isTypeOf('undefined');
