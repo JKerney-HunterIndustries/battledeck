@@ -5,12 +5,10 @@ function commandLineArgs(
     commandLineUsage,
     isValidPath,
     fs,
-    path
+    path,
+    typeBuilder
 ) {
-    const signet = require('../signetBuilder');
-    const version = require('../versionService');
-
-    const isUndefined = signet.isTypeOf('undefined');
+    const isUndefined = typeBuilder.isTypeOf('undefined');
 
     function getParameterType(errorMessage, isItValid, getValue, unknown) {
         try {
@@ -71,7 +69,7 @@ function commandLineArgs(
         }
     ];
 
-    const getArgs = signet.enforce(
+    const getArgs = typeBuilder.enforce(
         '() => commandLineArgument',
         function getArgs() {
             function isValidParmeter(unknownType) {
@@ -101,7 +99,7 @@ function commandLineArgs(
         }
     );
 
-    const buildUsageInfo = signet.enforce(
+    const buildUsageInfo = typeBuilder.enforce(
         'version => string',
         function buildUsageInfo(version) {
             const sections = [
