@@ -1,6 +1,7 @@
 'use strict';
 
 function server(
+    commandLineArgs,
     fs,
     http,
     opn,
@@ -8,7 +9,6 @@ function server(
     url
 ) {
     return function () {
-        const commandLineArgs = require('../commandLineAgs');
         const router = require('../router')();
         const imageTools = require('../imageTools');
         const stringProcessor = require('../stringProcessor')();
