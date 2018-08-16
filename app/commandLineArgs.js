@@ -60,7 +60,7 @@ function commandLineArgs(
             type: pathType,
             defaultOption: true,
             defaultValue: pathType('./'),
-            typeLabel: '[italic]{image_folder_path}',
+            typeLabel: '{italic image_folder_path}',
             description: "The path where images to be used as slides are contained."
         },
         {
@@ -136,8 +136,8 @@ function commandLineArgs(
                 {
                     header: 'Other Resources',
                     content: [
-                        'Documentation: [underline]{http://bit.ly/battledeckDocs}',
-                        'Project home: [underline]{https://github.com/JKerney-HunterIndustries/battledeck}'
+                        'Documentation: {underline http://bit.ly/battledeckDocs}',
+                        'Project home: {underline https://github.com/JKerney-HunterIndustries/battledeck}'
                     ]
                 }
             ];
