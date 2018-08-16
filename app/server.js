@@ -6,12 +6,13 @@ function server(
     http,
     opn,
     path,
+    stringProcessor,
     url
 ) {
     return function () {
         const router = require('../router')();
         const imageTools = require('../imageTools');
-        const stringProcessor = require('../stringProcessor')();
+        // const stringProcessor = require('../stringProcessor')();
 
         const port = 8713; // BTLE (BATTLE!!!!)
 
