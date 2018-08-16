@@ -1,4 +1,5 @@
-#!/usr/bin/env node
 'use strict';
 
-require('./server');
+const applicationEnvironment = require('./applicationEnvironment');
+// applicationEnvironment.build('server');
+applicationEnvironment.build('main');

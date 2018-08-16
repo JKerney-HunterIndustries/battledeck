@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const signet = require('./signetBuilder');
+const paths = require('path');
 
 function build() {
     const state = {};
@@ -35,7 +36,7 @@ function build() {
     const addStatic = signet.enforce(
         'route, path, contentType => undefined',
         function addStatic(route, path, contentType) {
-            add(route, hostFile(__dirname + path, contentType));
+            add(route, hostFile(paths.join(__dirname, path), contentType));
         }
     );
 
