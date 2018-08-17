@@ -1,0 +1,62 @@
+[
+    {
+        "header": "battledeck - the fun and easy way to do improvational presentations",
+        "content": [
+            "Version: myVersion",
+            "Hosts images in a directory as a random presentation."
+        ]
+    },
+    {
+        "header": "Synopsis",
+        "content": [
+            "Examples of use:",
+            "",
+            "battledeck",
+            "battledeck imagepath",
+            "battledeck --path imagepath",
+            "battledeck -p imagepath",
+            "",
+            "battledeck --help",
+            "battledeck -?",
+            "",
+            "battledeck --version",
+            "battledeck -v"
+        ]
+    },
+    {
+        "header": "Options",
+        "optionList": [
+            {
+                "name": "help",
+                "alias": "?",
+                "type": "Function: Boolean",
+                "description": "Shows usage help."
+            },
+            {
+                "name": "path",
+                "alias": "p",
+                "type": "Function: pathType",
+                "defaultOption": true,
+                "defaultValue": {
+                    "value": "Path must be a valid path to a directory. Instead given ./",
+                    "valid": false
+                },
+                "typeLabel": "{italic image_folder_path}",
+                "description": "The path where images to be used as slides are contained."
+            },
+            {
+                "name": "version",
+                "alias": "v",
+                "type": "Function: Boolean",
+                "description": "Displays the current version of battledeck."
+            }
+        ]
+    },
+    {
+        "header": "Other Resources",
+        "content": [
+            "Documentation: {underline http://bit.ly/battledeckDocs}",
+            "Project home: {underline https://github.com/JKerney-HunterIndustries/battledeck}"
+        ]
+    }
+]
