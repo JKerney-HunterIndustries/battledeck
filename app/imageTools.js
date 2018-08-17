@@ -3,12 +3,11 @@
 function imageTools(
     floor,
     randomizer,
+    supportedExtensions,
     typeBuilder
 ) {
     function isAnImagePath(name) {
-        const whiteExtentions = ['.jpg', '.png', '.gif', '.jpeg'];
-
-        return whiteExtentions.filter(ext => name.endsWith(ext)).length > 0;
+        return supportedExtensions.filter(ext => name.endsWith(ext)).length > 0;
     }
 
     function shuffle(itemsArray) {
