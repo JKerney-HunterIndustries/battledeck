@@ -79,13 +79,4 @@ describe('commandLineArgumentValidator should', function () {
 
         this.verify(asBasicInformationString(resultBuilder.getResult()));
     });
-
-
-
-    // it('Runs Index', function() {
-    //     const main = require('./test-utils/approvals-config');
-    //     //Do something
-    //     //main();
-    //     assert.isOk(false);
-    // });
 });
