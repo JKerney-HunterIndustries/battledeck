@@ -37,15 +37,20 @@
     "dject": "^1.9.3",
     "is-valid-path": "^0.1.1",
     "moment": "^2.22.1",
+    "object-information": "^0.4.2",
     "opn": "^5.3.0",
     "signet": "^6.7.0"
   },
   "devDependencies": {
+    "approval-result-factory": "^0.3.2",
+    "approvals": "^3.0.2",
+    "approvals-config-factory": "^1.0.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "spyfactory": "^0.3.5"
   }
 }
