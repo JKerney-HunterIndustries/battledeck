@@ -7,6 +7,7 @@ function server(
     imageTools,
     opn,
     path,
+    processControl,
     stringProcessor,
     router,
     url,
@@ -39,7 +40,7 @@ function server(
             }
 
             if ((!myArgsState.valid) || myArgsState.isError || myArgs.help || myArgs.version) {
-                process.exit();
+                processControl.exit();
             }
         }
 
@@ -53,7 +54,7 @@ function server(
 
         function endProgram(response) {
             response.end('<h1>Bye!</h1><br/>' + (new Date()) + "<br /><br /><br />Only the dead have seen the end of war.<br />.... George Santayana");
-            process.abort();
+            processControl.abort();
         }
 
         function getImage(response) {
