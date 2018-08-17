@@ -3,6 +3,7 @@
 function commandLineArgumentValidator(
     appVersion,
     commandLineArgs,
+    logger,
     processControl
 ) {
     return function validateCommandLineArguments() {
@@ -10,22 +11,22 @@ function commandLineArgumentValidator(
         const myArgs = myArgsState.value;
 
         if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
-            console.log(commandLineArgs.buildUsageInfo(appVersion));
+            logger.log(commandLineArgs.buildUsageInfo(appVersion));
         }
 
         if (myArgsState.isError) {
-            console.log(`\n\nERROR: \n ${myArgs}\n\n`)
+            logger.log(`\n\nERROR: \n ${myArgs}\n\n`)
         } else if (!(myArgsState.valid)) {
-            console.log('\nErrors: \n');
+            logger.log('\nErrors: \n');
             Object
                 .keys(myArgs)
                 .filter(k => myArgs[k].valid)
-                .forEach(k => console.log(`\n${myArgs[k].name}: ${myArgs[k].value}\n`))
-            console.log('\n');
+                .forEach(k => logger.log(`\n${myArgs[k].name}: ${myArgs[k].value}\n`))
+            logger.log('\n');
         }
 
         if (myArgs.version && !myArgs.help) {
-            console.log(`battledeck version: ${appVersion}`);
+            logger.log(`battledeck version: ${appVersion}`);
         }
 
         if ((!myArgsState.valid) || myArgsState.isError || myArgs.help || myArgs.version) {
