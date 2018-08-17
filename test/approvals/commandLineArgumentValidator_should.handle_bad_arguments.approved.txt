@@ -1,0 +1,27 @@
+{
+    "command-line-args.getArgs": [
+        []
+    ],
+    "command-line-args.buildUsageInfo": [
+        [
+            "ver.sio.n"
+        ]
+    ],
+    "logger.log": [
+        [
+            "undefined"
+        ],
+        [
+            "\nErrors: \n"
+        ],
+        [
+            "\narg1Name: arg1Value\n"
+        ],
+        [
+            "\n"
+        ]
+    ],
+    "process.exit": [
+        []
+    ]
+}

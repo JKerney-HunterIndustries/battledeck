@@ -31,6 +31,7 @@ function commandLineArgumentValidator(
 
         if ((!myArgsState.valid) || myArgsState.isError || myArgs.help || myArgs.version) {
             processControl.exit();
+            return;
         }
 
         return myArgs;
