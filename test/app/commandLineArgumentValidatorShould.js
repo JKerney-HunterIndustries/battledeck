@@ -10,9 +10,7 @@ describe('commandLineArgumentValidator should', function () {
     const { asInformationString } = testEnvironment.build('objectInformation');
     const { assert } = testEnvironment.build('chai');
 
-    const { asBasicInformationString } = testEnvironment.build('object-information');
-    const resultBuilderFactory = testEnvironment.build('approval-result-factory');
-    const spyFactory = testEnvironment.build('spyFactory');
+    const resultBuilderFactory = testEnvironment.build('approvalResultFactory');
 
     let testContext;
     let commandLineArgumentValidator;
@@ -77,6 +75,6 @@ describe('commandLineArgumentValidator should', function () {
             ]
         );
 
-        this.verify(asBasicInformationString(resultBuilder.getResult()));
+        this.verify(asInformationString(resultBuilder.getResult()));
     });
 });

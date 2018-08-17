@@ -69,9 +69,7 @@ function commandLineArgs(
         }
     ];
 
-    const getArgs = typeBuilder.enforce(
-        '() => commandLineArgument',
-        function getArgs() {
+    function getArgs() {
             function isValidParmeter(unknownType) {
                 return (unknownType.valid) || (isUndefined(unknownType.valid));
             }
@@ -96,12 +94,9 @@ function commandLineArgs(
                     isError: true
                 };
             }
-        }
-    );
+        };
 
-    const buildUsageInfo = typeBuilder.enforce(
-        'version => string',
-        function buildUsageInfo(version) {
+    function buildUsageInfo(version) {
             const sections = [
                 {
                     header: 'battledeck - the fun and easy way to do improvational presentations',
@@ -142,14 +137,19 @@ function commandLineArgs(
 
             return commandLineUsage(sections);
         }
-    );
 
     // console.log(JSON.stringify(getArgs(), null, 4));
     // console.log(buildUsageInfo());
 
     return {
-        getArgs: getArgs,
-        buildUsageInfo: buildUsageInfo
+        getArgs: typeBuilder.enforce(
+            '() => commandLineArgument',
+            getArgs
+        ),
+        buildUsageInfo: typeBuilder.enforce(
+            'version => string',
+            buildUsageInfo
+        )
     };
 }
 

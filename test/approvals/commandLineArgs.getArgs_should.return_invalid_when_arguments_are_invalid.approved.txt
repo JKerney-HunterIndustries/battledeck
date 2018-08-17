@@ -1,0 +1,10 @@
+{
+    "value": {
+        "thing": {},
+        "badThing": {
+            "valid": false
+        }
+    },
+    "valid": false,
+    "isError": false
+}

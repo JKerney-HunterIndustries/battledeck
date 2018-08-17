@@ -1,0 +1,7 @@
+{
+    "value": {
+        "thing": {}
+    },
+    "valid": true,
+    "isError": false
+}
