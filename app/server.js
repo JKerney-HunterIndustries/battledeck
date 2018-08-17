@@ -2,6 +2,7 @@
 
 function server(
     commandLineArgs,
+    commandLineArgumentValidator,
     fs,
     http,
     imageTools,
@@ -16,35 +17,7 @@ function server(
     return function () {
         const port = 8713; // BTLE (BATTLE!!!!)
 
-        let myArgsState = commandLineArgs.getArgs();
-        let myArgs = myArgsState.value;
-
-        function validateCommandLineArguments(myArgs) {
-            if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
-                console.log(commandLineArgs.buildUsageInfo(appVersion));
-            }
-
-            if (myArgsState.isError) {
-                console.log(`\n\nERROR: \n ${myArgs}\n\n`)
-            } else if (!(myArgsState.valid)) {
-                console.log('\nErrors: \n');
-                Object
-                    .keys(myArgs)
-                    .filter(k => myArgs[k].valid)
-                    .forEach(k => console.log(`\n${myArgs[k].name}: ${myArgs[k].value}\n`))
-                console.log('\n');
-            }
-
-            if (myArgs.version && !myArgs.help) {
-                console.log(`battledeck version: ${appVersion}`);
-            }
-
-            if ((!myArgsState.valid) || myArgsState.isError || myArgs.help || myArgs.version) {
-                processControl.exit();
-            }
-        }
-
-        validateCommandLineArguments(myArgs);
+        let myArgs = commandLineArgumentValidator();
 
         let imageDirectory = myArgs.path.value;
 
