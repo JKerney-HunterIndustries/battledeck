@@ -1,7 +1,6 @@
 'use strict';
 
 function server(
-    commandLineArgs,
     commandLineArgumentValidator,
     fs,
     http,
@@ -11,8 +10,7 @@ function server(
     processControl,
     stringProcessor,
     router,
-    url,
-    appVersion
+    url
 ) {
     return function () {
         const port = 8713; // BTLE (BATTLE!!!!)

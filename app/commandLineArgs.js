@@ -94,7 +94,7 @@ function commandLineArgs(
                     isError: true
                 };
             }
-        };
+        }
 
     function buildUsageInfo(version) {
             const sections = [
