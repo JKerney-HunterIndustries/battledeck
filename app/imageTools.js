@@ -1,36 +1,38 @@
 'use strict';
 
 function imageTools(
+    floor,
+    randomizer,
     typeBuilder
 ) {
-    const isAnImagePath = typeBuilder.enforce(
-        'name:string => boolean',
-        function isAnImagePath(name) {
-            const whiteExtentions = ['.jpg', '.png', '.gif', '.jpeg'];
+    function isAnImagePath(name) {
+        const whiteExtentions = ['.jpg', '.png', '.gif', '.jpeg'];
 
-            return whiteExtentions.filter(ext => name.endsWith(ext)).length > 0;
-        }
-    );
+        return whiteExtentions.filter(ext => name.endsWith(ext)).length > 0;
+    }
 
-    const shuffle = typeBuilder.enforce(
-        'itemsArray:array => array',
-        function shuffle(itemsArray) {
+    function shuffle(itemsArray) {
             let copy = itemsArray.slice(0);
             let target = [];
 
             while (copy.length > 0) {
-                const ptr = Math.floor(Math.random() * copy.length);
+                const ptr = floor(randomizer() * copy.length);
                 target.push(copy[ptr]);
                 copy.splice(ptr, 1);
             }
 
             return target;
         }
-    );
 
     return {
-        isAnImagePath: isAnImagePath,
-        shuffle: shuffle
+        isAnImagePath: typeBuilder.enforce(
+            'name:string => boolean',
+            isAnImagePath
+        ),
+        shuffle: typeBuilder.enforce(
+            'itemsArray:array => array',
+            shuffle
+        )
     };
 }
 
