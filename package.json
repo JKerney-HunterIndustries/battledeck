@@ -1,6 +1,6 @@
 {
   "name": "battledeck",
-  "version": "1.13.3",
+  "version": "1.13.4",
   "description": "A node battledeck (powerpoint karaoke) server",
   "main": "index.js",
   "bin": {
