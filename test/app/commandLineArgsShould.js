@@ -8,9 +8,6 @@ describe('commandLineArgs', function () {
 
     const sinon = testEnvironment.build('sinon');
     const { asInformationString } = testEnvironment.build('objectInformation');
-    const { assert } = testEnvironment.build('chai');
-
-    const resultBuilderFactory = testEnvironment.build('approvalResultFactory');
 
     let commandArgsFake;
     let argsReturnFake;
