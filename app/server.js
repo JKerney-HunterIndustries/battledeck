@@ -9,20 +9,18 @@ function server(
     path,
     stringProcessor,
     router,
-    url
+    url,
+    appVersion
 ) {
     return function () {
-        // const router = require('../router')();
-
         const port = 8713; // BTLE (BATTLE!!!!)
 
         let myArgsState = commandLineArgs.getArgs();
         let myArgs = myArgsState.value;
 
         function validateCommandLineArguments(myArgs) {
-            const version = require('../versionService');
             if ((!myArgsState.valid) || myArgsState.isError || myArgs.help) {
-                console.log(commandLineArgs.buildUsageInfo(version));
+                console.log(commandLineArgs.buildUsageInfo(appVersion));
             }
 
             if (myArgsState.isError) {
@@ -37,7 +35,7 @@ function server(
             }
 
             if (myArgs.version && !myArgs.help) {
-                console.log(`battledeck version: ${version}`);
+                console.log(`battledeck version: ${appVersion}`);
             }
 
             if ((!myArgsState.valid) || myArgsState.isError || myArgs.help || myArgs.version) {
