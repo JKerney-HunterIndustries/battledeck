@@ -4,6 +4,7 @@ function server(
     commandLineArgs,
     fs,
     http,
+    imageTools,
     opn,
     path,
     stringProcessor,
@@ -11,7 +12,7 @@ function server(
 ) {
     return function () {
         const router = require('../router')();
-        const imageTools = require('../imageTools');
+        // const imageTools = require('../imageTools');
 
         const port = 8713; // BTLE (BATTLE!!!!)
 
