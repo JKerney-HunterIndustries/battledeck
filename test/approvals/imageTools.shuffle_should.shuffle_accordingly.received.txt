@@ -1,8 +1,0 @@
-{
-    "random call count": 3,
-    "result": [
-        2,
-        3,
-        1
-    ]
-}
