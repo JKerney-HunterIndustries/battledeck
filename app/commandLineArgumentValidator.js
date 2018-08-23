@@ -21,7 +21,7 @@ function commandLineArgumentValidator(
             Object
                 .keys(myArgs)
                 .filter(k => myArgs[k].valid)
-                .forEach(k => logger.log(`\n${myArgs[k].name}: ${myArgs[k].value}\n`))
+                .forEach(k => logger.log(`\n${myArgs[k].name}: ${myArgs[k].value}\n`));
             logger.log('\n');
         }
 
