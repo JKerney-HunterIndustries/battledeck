@@ -33,7 +33,7 @@ function server(
                 ptr = 0;
             }
 
-            const imageData = fs.readFileSync(`${imageDirectory}${images[ptr]}`);
+            const imageData = fs.readFileSync(path.join(imageDirectory,images[ptr]));
             ptr++;
 
             response.writeHead(200, { 'Content-Type': 'text/plain' });
