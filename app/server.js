@@ -5,6 +5,7 @@ function server(
     fs,
     http,
     imageTools,
+    logger,
     opn,
     path,
     processControl,
@@ -73,7 +74,7 @@ function server(
 
         router.addStaticCss('/index.css', '../index.css');
 
-        const homepage = stringProcessor.processFile(path.join(__dirname, '../index.html'));
+        const homepage = stringProcessor.replaceTokensInFile(path.join(__dirname, '../index.html'));
         router.addHtml('/', homepage);
         router.addHtml('/index', homepage);
         router.addHtml('/index.htm', homepage);
@@ -90,10 +91,10 @@ function server(
                 router.serve(response, filepath);
             })
             .listen(port, function () {
-                console.log('ready to rumble!');
+                logger.log('ready to rumble!');
 
                 opn(battleUrl);
-                console.log(battleUrl);
+                logger.log(battleUrl);
             });
     }
 }

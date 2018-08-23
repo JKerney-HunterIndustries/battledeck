@@ -10,7 +10,7 @@ function stringProcessor(
 
     const tokenNames = Object.keys(variables);
 
-    function process(value) {
+    function replaceTokens(value) {
         var result = value;
         tokenNames.forEach(tokenName => {
             const token = `{${tokenName}}`;
@@ -20,14 +20,14 @@ function stringProcessor(
         return result;
     }
 
-    function processFile(path) {
+    function replaceTokensInFile(path) {
         const file = fs.readFileSync(path, { 'encoding': 'utf8' });
-        return process(file);
+        return replaceTokens(file);
     }
 
     return {
-        process: process,
-        processFile: processFile
+        replaceTokens: replaceTokens,
+        replaceTokensInFile: replaceTokensInFile
     };
 }
 
